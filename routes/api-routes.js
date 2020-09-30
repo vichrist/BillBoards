@@ -50,4 +50,40 @@ module.exports = function(app) {
       });
     }
   });
+
+  // get all budgets for userId
+
+  // get all categories
+
+  // post new category
+
+  // get all sub categories for with category_id
+
+  // post new sub category to category_id
+
+  // post budget entry to budgetId
+
+  // get all budget entries for budgetId
+
+  // get all budget entries for budgetId and category
+
+  // get all budget entries for budgetId and category and subcategory
+
+  // post milage start time 
+  // return timeid
+
+  // post milage end time for timeId
+
+  // get all milage for userId
+
+  // get milage for a description
+
+  // post start time
+  // return timeId
+
+  // post end time for timeid
+
+  // get all times for userId
+  
+  // get all times for a description
 };
