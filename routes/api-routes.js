@@ -51,9 +51,28 @@ module.exports = function(app) {
     }
   });
 
+
   // get all budgets for userId
+  app.get("api/budgets/:userId", (req, res) => {
+    db.findAll({
+      where: {
+        userId: req.param.userId
+      }
+    }).then(function(all) {
+      res.json(all);
+    });
+  });
 
   // get all categories
+  app.get("api/budgets/:budgetId", (req, res) => {
+    db.findAll({
+      where: {
+        budgetId: req.param.budgetId
+      }
+    }).then(function(all) {
+      res.json(all);
+    });
+  });
 
   // post new category
 
