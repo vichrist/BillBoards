@@ -1,12 +1,12 @@
-// budgets table 
+// budgets table
 module.exports = function(sequelize, DataTypes) {
-  let Budgets = sequelize.define("Budgets", {
+  const Budgets = sequelize.define("Budgets", {
     business: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN
     },
     budgetName: {
-      type: DataTypes.STRING, 
-    }, 
+      type: DataTypes.STRING
+    }
   });
   //a budget belongs to a user -- a budget cannot be created without a user due to the foreign key constraint
   Budgets.associate = function(models) {

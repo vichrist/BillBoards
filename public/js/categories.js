@@ -158,4 +158,5 @@ const categories = [
       "Cleaning/Laundry"]
   }
 ];
-  module.exports = categories
+
+module.exports = categories;
