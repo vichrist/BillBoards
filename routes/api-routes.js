@@ -53,9 +53,34 @@ module.exports = function(app) {
 
   // get all budgets for userId
 
+  app.get("/api/budgets", (req, res) => {
+    db.Budgets.findAll({})
+    .then((dbBudget) => {
+      res.json(dbBudget); 
+    });
+  });
+
   // get all categories
+  app.get("/api/categories", (req, res) => {
+    db.Categories.findAll({})
+    .then((dbCategories) => {
+      res.json(dbCategories); 
+    });
+  });
 
   // post new category
+
+  app.post("/api/post/categories", (req, res) => {
+    db.Categories.create({
+      name: req.body.name, 
+      total: req.body.total, 
+      percentage: req.body.percentage
+    }) 
+    .then((postCategories) =>{
+      res.json(postCategories); 
+    });
+  });
+   
 
   // get all sub categories for with category_id
 
