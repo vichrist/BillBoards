@@ -128,7 +128,10 @@ const categories = [
   },{
     name: "Clothing",
     startPercent: 5,
-    subCategories: ["Adults", "Children", "Cleaning/Laundry"]
+    subCategories: [
+      "Adults", 
+      "Children", 
+      "Cleaning/Laundry"]
   }
 ];
   module.exports = categories

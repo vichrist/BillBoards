@@ -1,6 +1,6 @@
 // sub_categories table 
 module.exports = function(sequelize, DataTypes) {
-  var Sub_Categories = sequelize.define("Sub_Categories", {
+  let Sub_Categories = sequelize.define("Sub_Categories", {
     name: {
       type: DataTypes.STRING, 
     } 
