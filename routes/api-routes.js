@@ -62,7 +62,7 @@ module.exports = function(app) {
     });
   });
 
-  // get all categories
+  // get all categories for budget id
   app.get("api/categories/:budgetId", (req, res) => {
     db.Categories.findAll({
       where: {
@@ -87,7 +87,7 @@ module.exports = function(app) {
 
   // get all budget entries for budgetId and category and subcategory
 
-  // post milage start time 
+  // post milage start time
   // return timeid
 
   // post milage end time for timeId
@@ -102,6 +102,6 @@ module.exports = function(app) {
   // post end time for timeid
 
   // get all times for userId
-  
+
   // get all times for a description
 };

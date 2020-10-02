@@ -9,6 +9,8 @@ const categories = [
     ]
   },{
     name: "Mortgage/Rent",
+    minPercent: 25,
+    maxPercent: 35,
     startPercent: 25,
     subCategories: [
       "1st Mortgage",
@@ -20,6 +22,8 @@ const categories = [
     ]
   },{
     name: "Utilities",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Electricity",
@@ -37,7 +41,9 @@ const categories = [
     ]
   },{
     name: "Insurance",
-    startPercent: 5,
+    minPercent: 10,
+    maxPercent: 25,
+    startPercent: 10,
     subCategories: [
       "Life",
       "Health",
@@ -48,14 +54,18 @@ const categories = [
     ]
   },{
     name: "Giving",
-    startPercent: 5,
+    minPercent: 10,
+    maxPercent: 15,
+    startPercent: 10,
     subCategories: [
       "Tithes",
       "Charity"
     ]
   },{
     name: "Transportation",
-    startPercent: 5,
+    minPercent: 10,
+    maxPercent: 15,
+    startPercent: 10,
     subCategories: [
       "Gas & Oil",
       "Repairs & Tires",
@@ -64,6 +74,8 @@ const categories = [
     ]
   },{
     name: "Debt",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Credit Card",
@@ -72,13 +84,17 @@ const categories = [
     ]
   },{
     name: "Food",
-    startPercent: 5,
+    minPercent: 5,
+    maxPercent: 15,
+    startPercent: 10,
     subCategories: [
       "Groceries",
       "Resturants/Takeout"
     ]
   },{
     name: "Medical/Health",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Medications",
@@ -89,6 +105,8 @@ const categories = [
     ]
   },{
     name: "Personal",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Child Care/Sitter",
@@ -108,6 +126,8 @@ const categories = [
     ]
   },{
     name: "Recreation",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Gym Membership",
@@ -117,6 +137,8 @@ const categories = [
     ]
   },{
     name: "Savings",
+    minPercent: 5,
+    maxPercent: 10,
     startPercent: 5,
     subCategories: [
       "Vacation",
@@ -127,6 +149,8 @@ const categories = [
     ]
   },{
     name: "Clothing",
+    minPercent: 2,
+    maxPercent: 7,
     startPercent: 5,
     subCategories: [
       "Adults", 
