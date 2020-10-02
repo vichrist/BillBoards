@@ -62,6 +62,8 @@ module.exports = function(app) {
     });
   });
 
+  // post new budget
+
   // get all categories for budget id
   app.get("api/categories/:budgetId", (req, res) => {
     db.Categories.findAll({
@@ -120,7 +122,7 @@ module.exports = function(app) {
   });
 
   // get all budget entries for budgetId and category
-  app.get("api/budget-entries/:budgetId/categoryId", (req, res) => {
+  app.get("api/budget-entries/:budgetId/:categoryId", (req, res) => {
     db.BudgetEntries.findAll({
       where: {
         budgetId: req.param.budgetId,

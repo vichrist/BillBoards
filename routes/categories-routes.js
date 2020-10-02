@@ -2,7 +2,7 @@ const db = require("../models");
 const categories = require("../public/js/categories.js");
 
 module.exports = function(app) {
-  // update categories based on budget items
+  // Get budget estimate for categories
   app.get("api/budget/estimate", (req, res) => {
     // get all incomes to find total income
     db.BudgetEntries.findAll({
