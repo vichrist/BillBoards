@@ -72,36 +72,101 @@ module.exports = function(app) {
       res.json(all);
     });
   });
-
   // post new category
 
-  // get all sub categories for with category_id
-
-  // post new sub category to category_id
-
-  // post budget entry to budgetId
-
-  // get all budget entries for budgetId
-
-  // get all budget entries for budgetId and category
-
-  // get all budget entries for budgetId and category and subcategory
-
-  // post milage start time 
-  // return timeid
-
-  // post milage end time for timeId
-
-  // get all milage for userId
-
-  // get milage for a description
-
-  // post start time
-  // return timeId
-
-  // post end time for timeid
-
-  // get all times for userId
+  app.post("/api/post/categories", (req, res) => {
+    db.Categories.create({
+      name: req.body.name, 
+      total: req.body.total, 
+      percentage: req.body.percentage
+    }) 
+    .then((postCategories) =>{
+      res.json(postCategories); 
+    });
+  });
   
-  // get all times for a description
+
+// get all sub categories for category_id
+  app.get("api/subcategories/:categoryId", (req, res) => {
+    db.Sub_Categories.findAll({
+      where: {
+        categoryId: req.param.categoryId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
+
+
+// post new sub category to category_id --- NOT SURE IF THIS IS CORRECT
+
+// app.post("/api/post/subcategories", (req, res) => {
+//   db.Sub_Categories.create({
+//     name: req.body.name, 
+//     total: req.body.total, 
+//     percentage: req.body.percentage
+//   }) 
+//   .then((postSubCategories) =>{
+//     res.json(postSubCategories); 
+//   });
+// });
+
+
+// post budget entry to budgetId
+
+// get all budget entries for budgetId
+
+app.get("api/budget-entries/:budgetId", (req, res) => {
+  db.Budget-Entries.findAll({
+    where: {
+      budgetId: req.param.budgetId
+    }
+  }).then(all => {
+    res.json(all);
+  });
+});
+
+// get all budget entries for budgetId and category
+app.get("api/budget-entries/:budgetId/categoryId", (req, res) => {
+  db.Budget-Entries.findAll({
+    where: {
+      budgetId: req.param.budgetId, 
+      categoriesId: req.param.categoriesId
+    }
+  }).then(all => {
+    res.json(all);
+  });
+});
+
+// get all budget entries for budgetId and category and subcategory
+
+app.get("api/budget-entries/:budgetId/categoryId/subcategoryId", (req, res) => {
+  db.Budget-Entries.findAll({
+    where: {
+      budgetId: req.param.budgetId, 
+      categoriesId: req.param.categoriesId, 
+      sub_categoriesId: req.param.sub_categoriesId
+    }
+  }).then(all => {
+    res.json(all);
+  });
+});
+
+// post milage start time 
+// return timeid
+
+// post milage end time for timeId
+
+// get all milage for userId
+
+// get milage for a description
+
+// post start time
+// return timeId
+
+// post end time for timeid
+
+// get all times for userId
+
+// get all times for a description
 };
