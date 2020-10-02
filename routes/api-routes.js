@@ -51,48 +51,107 @@ module.exports = function(app) {
     }
   });
 
-  // get all budgets for userId
-
-  app.get("/api/budgets", (req, res) => {
-    db.Budgets.findAll({})
-    .then((dbBudget) => {
-      res.json(dbBudget); 
+    // get all budgets for userId
+    app.get("api/budgets/:userId", (req, res) => {
+      db.Budgets.findAll({
+        where: {
+          userId: req.param.userId
+        }
+      }).then(all => {
+        res.json(all);
+      });
     });
-  });
-
-  // get all categories
-  app.get("/api/categories", (req, res) => {
-    db.Categories.findAll({})
-    .then((dbCategories) => {
-      res.json(dbCategories); 
+  
+    // get all categories
+    app.get("api/categories/:budgetId", (req, res) => {
+      db.Categories.findAll({
+        where: {
+          budgetId: req.param.budgetId
+        }
+      }).then(all => {
+        res.json(all);
+      });
     });
-  });
 
   // post new category
 
-  app.post("/api/post/categories", (req, res) => {
-    db.Categories.create({
-      name: req.body.name, 
-      total: req.body.total, 
-      percentage: req.body.percentage
-    }) 
-    .then((postCategories) =>{
-      res.json(postCategories); 
+    app.post("/api/post/categories", (req, res) => {
+      db.Categories.create({
+        name: req.body.name, 
+        total: req.body.total, 
+        percentage: req.body.percentage
+      }) 
+      .then((postCategories) =>{
+        res.json(postCategories); 
+      });
     });
-  });
-   
+    
 
-  // get all sub categories for with category_id
+  // get all sub categories for category_id
+    app.get("api/subcategories/:categoryId", (req, res) => {
+      db.Sub_Categories.findAll({
+        where: {
+          categoryId: req.param.categoryId
+        }
+      }).then(all => {
+        res.json(all);
+      });
+    });
 
-  // post new sub category to category_id
 
+  // post new sub category to category_id --- NOT SURE IF THIS IS CORRECT
+
+  // app.post("/api/post/subcategories", (req, res) => {
+  //   db.Sub_Categories.create({
+  //     name: req.body.name, 
+  //     total: req.body.total, 
+  //     percentage: req.body.percentage
+  //   }) 
+  //   .then((postSubCategories) =>{
+  //     res.json(postSubCategories); 
+  //   });
+  // });
+
+  
   // post budget entry to budgetId
 
   // get all budget entries for budgetId
 
+  app.get("api/budget-entries/:budgetId", (req, res) => {
+    db.Budget-Entries.findAll({
+      where: {
+        budgetId: req.param.budgetId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
+
   // get all budget entries for budgetId and category
+  app.get("api/budget-entries/:budgetId/categoryId", (req, res) => {
+    db.Budget-Entries.findAll({
+      where: {
+        budgetId: req.param.budgetId, 
+        categoriesId: req.param.categoriesId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
 
   // get all budget entries for budgetId and category and subcategory
+
+  app.get("api/budget-entries/:budgetId/categoryId/subcategoryId", (req, res) => {
+    db.Budget-Entries.findAll({
+      where: {
+        budgetId: req.param.budgetId, 
+        categoriesId: req.param.categoriesId, 
+        sub_categoriesId: req.param.sub_categoriesId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
 
   // post milage start time 
   // return timeid

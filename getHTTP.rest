@@ -1,1 +1,1 @@
-POST http://localhost:8080/api/post/categories
+GET http://localhost:8080/api/budgets/:userId
