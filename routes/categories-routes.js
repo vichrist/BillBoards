@@ -10,7 +10,8 @@ module.exports = function(app) {
       }
     }).then(incomes => {
       console.log(incomes);
-      
+      if (incomes === null) return res.json(null);
+
       // add up incomes except One Time incomes
       let totalIncome = 0;
       incomes.forEach(inc => {
@@ -18,14 +19,21 @@ module.exports = function(app) {
           totalIncome += inc.amount;
         }
       });
+      if totalIncome = 0
 
       // create estimate objects for each category
       const estimate = categories;
-      estimate.forEach(c => {
+      let curTotal = 0;
+      for(i=1; i < estimate.length; i++) {
         if (c.startPercent !== null) {
-          c.suggested = (c.startPercent / 100) * totalIncome;
+          if (i < estimate.length - 1) {
+            c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
+            curTotal += c.suggested
+          } else {
+            c.suggested = totalIncome - curTotal;
+          }
         }
-      });
+      }
 
       // return estimate
       return res.json(estimate);
