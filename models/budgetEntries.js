@@ -12,9 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       name: {
           type: DataTypes.STRING
       },
-      budgetEntriescol: {
-          type: DataTypes.STRING
-      },
       category: {
         type: DataTypes.STRING
       }

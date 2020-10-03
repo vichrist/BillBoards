@@ -4,13 +4,13 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.BOOLEAN
       },
       startTime: {
-        type: DataTypes.DATETIME
+        type: DataTypes.STRING
       },
       endTime: {
-          type: DataTypes.DATETIME
+          type: DataTypes.STRING
       },
       totalTime: {
-          type: DataTypes.DATETIME
+          type: DataTypes.STRING
       }
     });
     
