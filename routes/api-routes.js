@@ -56,7 +56,8 @@ module.exports = function(app) {
     db.Budgets.findAll({
       where: {
         userId: req.param.userId
-      }
+      },
+      include: [db.BudgetEntries]
     }).then(all => {
       res.json(all);
     });
@@ -82,28 +83,28 @@ module.exports = function(app) {
     });
   });
 
-  // get all budget entries for budgetId
-  app.get("api/budget-entries/:budgetId", (req, res) => {
-    db.BudgetEntries.findAll({
-      where: {
-        budgetId: req.param.budgetId
-      }
-    }).then(all => {
-      res.json(all);
-    });
-  });
+  // // get all budget entries for budgetId
+  // app.get("api/budget-entries/:budgetId", (req, res) => {
+  //   db.BudgetEntries.findAll({
+  //     where: {
+  //       budgetId: req.param.budgetId
+  //     }
+  //   }).then(all => {
+  //     res.json(all);
+  //   });
+  // });
 
-  // get all budget entries for budgetId and category
-  app.get("api/budget-entries/:budgetId/:categoryId", (req, res) => {
-    db.BudgetEntries.findAll({
-      where: {
-        budgetId: req.param.budgetId,
-        categoriesId: req.param.categoriesId
-      }
-    }).then(all => {
-      res.json(all);
-    });
-  });
+  // // get all budget entries for budgetId and category
+  // app.get("api/budget-entries/:budgetId/:categoryId", (req, res) => {
+  //   db.BudgetEntries.findAll({
+  //     where: {
+  //       budgetId: req.param.budgetId,
+  //       categoriesId: req.param.categoriesId
+  //     }
+  //   }).then(all => {
+  //     res.json(all);
+  //   });
+  // });
 
   // post mileage start time
 

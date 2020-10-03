@@ -1,4 +1,4 @@
-const { doc } = require("prettier");
+// const { doc } = require("prettier");
 
 
 $(document).ready(() => {
@@ -6,13 +6,13 @@ $(document).ready(() => {
 
   // listen for submit on create budget form
   setupForm.on("submit", e => {
-    // route to budgets page
-    
-    // post a budget (personal or business as selected)
-    
-    // post initial income to that budget
-    
-    // get budget estimate
+  // route to budgets page
+  
+  // post a budget (personal or business as selected)
+  
+  // post initial income to that budget
+  
+  // get budget estimate
     
   });
 });
