@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    const Entries = sequelize.define("Entries", {
+    const BudgetEntries = sequelize.define("BudgetEntries", {
       business: {
         type: DataTypes.BOOLEAN
       },
@@ -14,16 +14,19 @@ module.exports = function(sequelize, DataTypes) {
       },
       budgetEntriescol: {
           type: DataTypes.STRING
+      },
+      category: {
+        type: DataTypes.STRING
       }
     
     });
     
-    Entries.associate = function(models) {
-      Entries.belongsTo(models.User, {
+    BudgetEntries.associate = function(models) {
+      BudgetEntries.belongsTo(models.Budgets, {
         foreignKey: {
           allowNull: false
         }
       });
     };
-    return Entries;
+    return BudgetEntries;
   };
