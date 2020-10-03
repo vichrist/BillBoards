@@ -50,4 +50,78 @@ module.exports = function(app) {
       });
     }
   });
+
+  // get all budgets for userId
+  app.get("api/budgets/:userId", (req, res) => {
+    db.Budgets.findAll({
+      where: {
+        userId: req.param.userId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
+
+  // post new category
+  app.post("/api/post/categories", (req, res) => {
+    db.Categories.create({
+      categoryName: req.body.categoryName,
+      subcategoryName: req.body.subcategoryName
+    }).then(postCategories => {
+      res.json(postCategories);
+    });
+  });
+
+  // post budget entry to budgetId
+  app.post("/api/post/budget-entries", (req, res) => {
+    db.BudgetEntries.create({
+      name: req.body.name, // not so sure we need this line here
+      budgetId: req.body.budgetId
+    }).then(postBudgetEntries => {
+      res.json(postBudgetEntries);
+    });
+  });
+
+  // get all budget entries for budgetId
+  app.get("api/budget-entries/:budgetId", (req, res) => {
+    db.BudgetEntries.findAll({
+      where: {
+        budgetId: req.param.budgetId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
+
+  // get all budget entries for budgetId and category
+  app.get("api/budget-entries/:budgetId/:categoryId", (req, res) => {
+    db.BudgetEntries.findAll({
+      where: {
+        budgetId: req.param.budgetId,
+        categoriesId: req.param.categoriesId
+      }
+    }).then(all => {
+      res.json(all);
+    });
+  });
+
+  // post mileage start time
+
+  // return timeid
+
+  // post mileage end time for timeId
+
+  // get all mileage for userId
+
+  // get mileage for a description
+
+  // post start time
+
+  // return timeId
+
+  // post end time for timeid
+
+  // get all times for userId
+
+  // get all times for a description
 };
