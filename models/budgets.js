@@ -15,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
+
+    Budgets.hasMany(models.BudgetEntries.js, {
+      onDelete: "cascade"
+    });
   };
   return Budgets;
 };

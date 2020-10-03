@@ -83,6 +83,7 @@ module.exports = function(app) {
     });
   });
 
+  
   // // get all budget entries for budgetId
   // app.get("api/budget-entries/:budgetId", (req, res) => {
   //   db.BudgetEntries.findAll({

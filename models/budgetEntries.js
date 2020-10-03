@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     }
   });
-  
+
   Entries.associate = function(models) {
     Entries.belongsTo(models.Budgets, {
       foreignKey: {

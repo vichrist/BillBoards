@@ -6,13 +6,26 @@ $(document).ready(() => {
 
   // listen for submit on create budget form
   setupForm.on("submit", e => {
-  // route to budgets page
-  
-  // post a budget (personal or business as selected)
-  
-  // post initial income to that budget
-  
-  // get budget estimate
-    
+    e.preventDefault();
+    const type = $("budget-category2"); //check business radio button
+    const name = $("budget-name");
+
+    $.get("/api/user_data").then(data => {
+      // post a budget (personal or business as selected)
+      $.post("/api/post/budget", {
+        business: type.checked,
+        budgetName: name,
+        userId: data.id
+      }).then(budget => {
+        // post initial income to that budget
+        $.post("/api/post/budget-entries", {
+          
+        }).then()
+        // route to budgets page
+      });
+
+    });
+
+
   });
 });
