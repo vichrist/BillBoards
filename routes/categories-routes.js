@@ -19,6 +19,14 @@ module.exports = function(app) {
       let totalIncome = 0;
       incomes.forEach(inc => {
         if (inc.name !== "One Time") {
+          switch (inc.name) {
+            case "Weekly":
+              inc.amount *= 4;
+              break;
+            case "Biweekly":
+              inc.amount *= 2;
+              break;
+          }
           totalIncome += inc.amount;
         }
       });

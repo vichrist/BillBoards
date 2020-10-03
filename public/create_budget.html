@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="stylesheets/style.css" rel="stylesheet">
     <title>Create a New Budget </title>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -14,12 +16,12 @@
         <nav class="navbar navbar-expand-sm bg-primary navbar-light">
             <h3 class="create">Create a new budget</h3>
         </nav>
-        <form action="/action_page.php">
+        <form class="form new-budget">
             <div>
-                <h4>Please select a budget:</h4>
-                <input type="radio" id="budget-category1" checked>
+                <h5>Please select a budget type:</h5>
+                <input type="radio" id="personal" checked>
                 <label for="Personal">Personal</label><br>
-                <input type="radio" id="budget-category2">
+                <input type="radio" id="business">
                 <label for="Business">Business</label>
             </div>
             <div class="form-group col-md-4">
@@ -28,7 +30,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="income">Income Types:</label>
-                <select class="form-control" id="income_type" name="incomelist">
+                <select class="form-control" id="incomeType" name="incomeList">
                     <option>Weekly</option>
                     <option>Biweekly</option>
                     <option>Monthly</option>
@@ -36,14 +38,15 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="budgetname">Budget Name:</label>
-                <input type="text" class="form-control" id="budget_name">
+                <label for="budgetName">Budget Name:</label>
+                <input type="text" class="form-control" id="budgetName">
             </div>
-            <button type="submit" id="create_button" class="btn btn-primary">Create a Budget</button>
-            <button type="view" id="view_button" class="btn btn-primary">View</button>
+            <button type="submit" id="createButton" class="btn btn-primary">Create a Budget</button>
+            <button type="view" id="viewButton" class="btn btn-primary">View</button>
         </form>
     </div>
 
+    <script type="text/javascript" src="js/create-budget.js"></script>
 </body>
 
 </html>
