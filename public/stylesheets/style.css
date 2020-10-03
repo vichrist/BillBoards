@@ -2,3 +2,14 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+/** create_budget **/
+.create, h3{
+  text-align:center;
+  color: white;
+}
+.form-group {
+  padding-top: 10px;
+}
+.select_budget, h4 {
+  padding-top: 20px;
+}
