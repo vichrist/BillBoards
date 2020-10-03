@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <title>Create a New Budget </title>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-light">
+            <h3 class="create">Create a new budget</h3>
+        </nav>
+        <form class="form new-budget">
+            <div>
+                <h5>Please select a budget type:</h5>
+                <input type="radio" id="personal" checked>
+                <label for="Personal">Personal</label><br>
+                <input type="radio" id="business">
+                <label for="Business">Business</label>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="income">Income:</label>
+                <input type="text" class="form-control" id="income">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="income">Income Types:</label>
+                <select class="form-control" id="incomeType" name="incomeList">
+                    <option>Weekly</option>
+                    <option>Biweekly</option>
+                    <option>Monthly</option>
+                    <option>One time</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="budgetName">Budget Name:</label>
+                <input type="text" class="form-control" id="budgetName">
+            </div>
+            <button type="submit" id="createButton" class="btn btn-primary">Create a Budget</button>
+            <button type="view" id="viewButton" class="btn btn-primary">View</button>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="js/create-budget.js"></script>
+</body>
+
+</html>

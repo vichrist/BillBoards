@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const budgetEntries = require("../models/budgetEntries");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -62,7 +63,14 @@ module.exports = function(app) {
       res.json(all);
     });
   });
-
+  // post a budget
+  app.post("/api/post/budgets", (req, res) => {
+    db.Budgets.create({
+      budgetName: req.body.budgetName
+    }).then(postBudgets => {
+      res.json(postBudgets);
+    });
+  });
   // post new category
   app.post("/api/post/categories", (req, res) => {
     db.Categories.create({
@@ -83,7 +91,7 @@ module.exports = function(app) {
     });
   });
 
-  
+
   // // get all budget entries for budgetId
   // app.get("api/budget-entries/:budgetId", (req, res) => {
   //   db.BudgetEntries.findAll({
