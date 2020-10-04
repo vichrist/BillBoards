@@ -7,4 +7,3 @@ INSERT INTO budgetentries (business, budgetExpenses, amount, name, category) VAL
 
 
 INSERT INTO categories (business, categoryName, subcategoryName VALUES (true,'TEST', 'TEST');
-
