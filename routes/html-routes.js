@@ -15,6 +15,7 @@ module.exports = function(app) {
 
   app.get("/login", (req, res) => {
     // If the user already has an account send them to the budget page
+    console.log('req.user: ', req.user);
     if (req.user) {
       res.redirect("/budgets");
     }
@@ -25,6 +26,10 @@ module.exports = function(app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/budgets", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/budgets.html"));
+  });
+
+  app.get("/create-budget", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/create-budget.html"));
   });
 
   app.get("/viewbudgets", isAuthenticated, (req, res) => {
