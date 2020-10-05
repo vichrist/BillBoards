@@ -34,8 +34,7 @@ $(document).ready(() => {
           $.get("/api/budgets/" + res.id).then(budgets => {
             console.log("budgets: ", budgets);
             if (budgets !== null) {
-              window.location.replace("/create-budget");
-              // window.location.replace("/budgets");
+              window.location.replace("/budgets");
             } else {
               window.location.replace("/create-budget");
             }
