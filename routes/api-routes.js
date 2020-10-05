@@ -20,7 +20,7 @@ module.exports = function(app) {
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
     console.log("signing up");
-    db.User.create({
+    db.Users.create({
       email: req.body.email,
       password: req.body.password
     })
@@ -55,7 +55,7 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
-    console.log("get all budgets req.params.userId: ", req.params.userId);
+    console.log(`Getting all budgets for user #${req.params.userId}`)
     db.Budgets.findAll({
       where: {
         UserId: req.params.userId
@@ -65,10 +65,23 @@ module.exports = function(app) {
       res.json(all);
     });
   });
+
+  // get a budget
+  app.get("/api/budget/:userId/:budgetName", (req, res) => {
+    console.log(`getting the ${req.params.budgetName} budget`);
+    db.Budgets.findOne({
+      where: {
+        UserId: req.params.userId,
+        budgetName: req.params.budgetName
+      }
+    }).then(response => {
+      res.json(response);
+    })
+  });
+
   // post a budget
   app.post("/api/post/budget", (req, res) => {
-    console.log("req.body: ", req.body);
-
+    console.log(`Adding new budget for user #${req.body.UserId}`)
     db.Budgets.create({
       business: req.body.business,
       budgetName: req.body.budgetName,
@@ -77,8 +90,10 @@ module.exports = function(app) {
       res.json(postBudgets);
     });
   });
+
   // post new category
-  app.post("/api/post/categories", (req, res) => {
+  app.post("/api/post/category", (req, res) => {
+    console.log(`Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`);
     db.Categories.create({
       categoryName: req.body.categoryName,
       subcategoryName: req.body.subcategoryName
@@ -89,6 +104,7 @@ module.exports = function(app) {
 
   // post budget entry to budgetId
   app.post("/api/post/budget-entries", (req, res) => {
+    console.log(`Adding a budget entry for ${req.body.name}`);
     db.BudgetEntries.create({
       business: req.body.business,
       budgetExpense: req.body.budgetExpense,
@@ -100,7 +116,6 @@ module.exports = function(app) {
       res.json(postBudgetEntries);
     });
   });
-
 
   // // get all budget entries for budgetId
   // app.get("api/budget-entries/:budgetId", (req, res) => {
