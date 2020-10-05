@@ -66,8 +66,11 @@ module.exports = function(app) {
     });
   });
   // post a budget
-  app.post("/api/post/budgets", (req, res) => {
+  app.post("/api/post/budget", (req, res) => {
+    console.log('req.body: ', req.body);
+
     db.Budgets.create({
+      business: req.body.business,
       budgetName: req.body.budgetName,
       UserId: req.body.UserId
     }).then(postBudgets => {
@@ -87,7 +90,11 @@ module.exports = function(app) {
   // post budget entry to budgetId
   app.post("/api/post/budget-entries", (req, res) => {
     db.BudgetEntries.create({
+      business: req.body.business,
+      budgetExpense: req.body.budgetExpense,
+      amount: req.body.amount,
       name: req.body.name, // not so sure we need this line here
+      category: req.body.category,
       BudgetId: req.body.budgetId
     }).then(postBudgetEntries => {
       res.json(postBudgetEntries);
