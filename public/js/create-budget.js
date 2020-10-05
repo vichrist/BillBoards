@@ -15,7 +15,7 @@ $(document).ready(() => {
       $.post("/api/post/budget", {
         business: type.checked,
         budgetName: name,
-        userId: data.id
+        UserId: data.id
       }).then(() => {
         // post initial income to that budget
         $.post("/api/post/budget-entries", {

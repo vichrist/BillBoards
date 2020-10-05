@@ -19,6 +19,7 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
+    console.log("signing up");
     db.User.create({
       email: req.body.email,
       password: req.body.password
@@ -54,9 +55,10 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
+    console.log('req.param.userId: ', req.param.userId);
     db.Budgets.findAll({
       where: {
-        userId: req.param.userId
+        UserId: req.param.userId
       },
       include: [db.BudgetEntries]
     }).then(all => {
@@ -66,7 +68,8 @@ module.exports = function(app) {
   // post a budget
   app.post("/api/post/budgets", (req, res) => {
     db.Budgets.create({
-      budgetName: req.body.budgetName
+      budgetName: req.body.budgetName,
+      UserId: req.body.UserId
     }).then(postBudgets => {
       res.json(postBudgets);
     });
@@ -85,7 +88,7 @@ module.exports = function(app) {
   app.post("/api/post/budget-entries", (req, res) => {
     db.BudgetEntries.create({
       name: req.body.name, // not so sure we need this line here
-      budgetId: req.body.budgetId
+      BudgetId: req.body.budgetId
     }).then(postBudgetEntries => {
       res.json(postBudgetEntries);
     });
