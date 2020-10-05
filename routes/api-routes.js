@@ -55,7 +55,7 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
-    console.log('get all budgets req.params.userId: ', req.params.userId);
+    console.log("get all budgets req.params.userId: ", req.params.userId);
     db.Budgets.findAll({
       where: {
         UserId: req.params.userId
@@ -67,7 +67,7 @@ module.exports = function(app) {
   });
   // post a budget
   app.post("/api/post/budget", (req, res) => {
-    console.log('req.body: ', req.body);
+    console.log("req.body: ", req.body);
 
     db.Budgets.create({
       business: req.body.business,
