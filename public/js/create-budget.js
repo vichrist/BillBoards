@@ -4,31 +4,35 @@ $(document).ready(() => {
   // listen for submit on create budget form
   $(".form").on("submit", e => {
     e.preventDefault();
-    const type = $("#business"); //check business radio button
+    const budgetType = $("#business")[0].checked; //check business radio button
+    console.log('budgetType: ', budgetType);
     const name = $("#budgetName").val().trim();
     const incomeAmt = $("#income").val().trim();
     const incType = $("#incomeType").val().trim();
+    
+    console.log('budgetType: ', budgetType);
 
     //get user id for Budgets table
     $.get("/api/user_data").then(data => {
       // post a budget (personal or business as selected)
       $.post("/api/post/budget", {
-        business: type.checked,
+        business: budgetType,
         budgetName: name,
         UserId: data.id
-      }).then(() => {
+      }).then(ans => {
+        console.log('ans: ', ans);
+
         // post initial income to that budget
         $.post("/api/post/budget-entries", {
-          business: type.checked,
-          budgetExpenses: false,
+          business: budgetType,
+          budgetExpense: false,
           amount: incomeAmt,
           name: incType,
-          category: "Income"
+          category: "Income",
+          budgetId: ans.id
         }).then(() => {
           // route to budgets view page
-          app.get("/viewbudgets", isAuthenticated, (req, res) => {
-            res.sendFile(path.join(__dirname, "../public/viewbudgets.html"));
-          });
+          res.redirect("/budgets");
         });
       });
     });
