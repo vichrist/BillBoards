@@ -25,11 +25,12 @@ module.exports = function(app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/budgets", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/budgets.html"));
+    res.sendFile(path.join(__dirname, "../public/create-budget.html"));
+    // res.sendFile(path.join(__dirname, "../public/budgets.html"));
   });
 
   app.get("/create-budget", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/create_budget.html"));
+    res.sendFile(path.join(__dirname, "../public/create-budget.html"));
   });
 
   app.get("/viewbudgets", isAuthenticated, (req, res) => {

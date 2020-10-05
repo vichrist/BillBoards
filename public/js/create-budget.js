@@ -30,9 +30,9 @@ $(document).ready(() => {
           name: incType,
           category: "Income",
           budgetId: ans.id
-        }).then(() => {
+        }).then(res => {
           // route to budgets view page
-          res.redirect("/budgets");
+          $.get("/viewbudgets");
         });
       });
     });
@@ -41,8 +41,6 @@ $(document).ready(() => {
   // listen for view button click and send to viewbudgets page
   $("#viewButton").on("click", e => {
     // route to budgets view page
-    app.get("/viewbudgets", isAuthenticated, (req, res) => {
-      res.sendFile(path.join(__dirname, "../public/viewbudgets.html"));
-    });
-  })
+    $.get("/viewbudgets");
+  });
 });
