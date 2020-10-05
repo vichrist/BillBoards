@@ -55,6 +55,7 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
+    console.log('get all budgets req.params.userId: ', req.params.userId);
     db.Budgets.findAll({
       where: {
         UserId: req.params.userId

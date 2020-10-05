@@ -29,7 +29,7 @@ module.exports = function(app) {
   });
 
   app.get("/create-budget", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/create-budget.html"));
+    res.sendFile(path.join(__dirname, "../public/create_budget.html"));
   });
 
   app.get("/viewbudgets", isAuthenticated, (req, res) => {
