@@ -20,34 +20,35 @@
     <div class="container">
        
         <nav class="navbar navbar-expand-sm">
-            <h3 class="create">Create a new budget</h3>
+            <h3 class="create">Create a Budget</h3>
+
         </nav>
         <form class="form new-budget">
             <div class="form-group col-md-4">
-                <h5 for="budgetName">Budget Name:</h5>
+                <h5 for="budgetName">Budget Name</h5>
                 <input type="text" class="form-control" id="budgetName">
             </div>
             <div class="form-group col-md-4">
-                <p>Please select a budget type:</p>
+                <p>Select the budget type</p>
                 <input type="radio" name=budgetType id="personal" checked>
                 <label for="Personal">Personal</label><br>
                 <input type="radio" name=budgetType id="business">
                 <label for="Business">Business</label>
             </div>
             <div class="form-group col-md-4">
-                <label for="income">Income:</label>
-                <input type="text" class="form-control" id="income">
+                <label for="income">Income</label>
+                <input type="text" class="form-control" id="income" placeholder="Enter total income">
             </div>
             <div class="form-group col-md-4">
-                <label for="income">Income Types:</label>
+                <label for="income">Select Income Frequency</label>
                 <select class="form-control" id="incomeType" name="incomeList">
                     <option>Weekly</option>
-                    <option>Biweekly</option>
+                    <option>Bi-weekly</option>
                     <option>Monthly</option>
-                    <option>One time</option>
+                    <option>One-time</option>
                 </select>
             </div>
-            <button type="submit" id="createButton" class="btn btn-primary">Create a Budget</button>
+            <button type="submit" id="createButton" class="btn btn-primary">Create Budget</button>
             <button type="view" id="viewButton" class="btn btn-primary">View</button>
         </form>
     </div>
