@@ -1,4 +1,6 @@
-POST http://localhost:8080/api/signup  
+DELETE http://localhost:8080/api/budget/id
+
+
 
 
 
