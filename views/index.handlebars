@@ -1,14 +1,10 @@
 <div class="navbar">
   <div class="dropdownMenus col-md-4">
     <div class='form-field'>
-      <label for='budgetFilter'>Budget categories</label>
+      <label for='budgetFilter'>Budget Types</label>
       <select id='budgetFilter' class='form-control'>
         <option>Personal</option>
-        <option>Business one</option>
-        <option>Business two</option>
-        {{#each category}}
-        <option value="{{this}}">{{this.budget}}</option>
-        {{/each}}
+        <option>Business</option>
       </select>
     </div>
   </div>
@@ -16,11 +12,10 @@
     <div class='form-field'>
       <label for='budgetFilter'>Budget categories</label>
       <select id='budgetFilter' class='form-control'>
-        <option>Personal</option>
-        <option>Business one</option>
-        <option>Business two</option>
         {{#each category}}
-        <option value="{{this}}">{{this.budget}}</option>
+          {{#each this.subCategories}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
         {{/each}}
       </select>
     </div>

@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     business: {
       type: DataTypes.BOOLEAN
     },
-    budgetExpenses: {
+    budgetExpense: {
       type: DataTypes.BOOLEAN
     },
     amount: {

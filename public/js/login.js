@@ -28,8 +28,18 @@ $(document).ready(() => {
       email: email,
       password: password
     })
-      .then(() => {
-        window.location.replace("/members");
+      .then(res => {
+        console.log('res: ', res);
+
+          $.get("/api/budgets/" + res.id).then(budgets => {
+            console.log("budgets: ", budgets);
+            if (budgets !== null) {
+              window.location.replace("/budgets");
+            } else {
+              window.location.replace("/create-budget");
+            }
+          });
+        
         // If there's an error, log the error
       })
       .catch(err => {
