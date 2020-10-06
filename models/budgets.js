@@ -10,12 +10,15 @@ module.exports = function(sequelize, DataTypes) {
   });
   //a budget belongs to a user -- a budget cannot be created without a user due to the foreign key constraint
   Budgets.associate = function(models) {
-    Budgets.belongsTo(models.User, {
+    Budgets.belongsTo(models.Users, {
       foreignKey: {
         allowNull: false
       }
     });
+
+    Budgets.hasMany(models.BudgetEntries, {
+      onDelete: "cascade"
+    });
   };
   return Budgets;
 };
- 

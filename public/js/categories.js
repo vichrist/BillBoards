@@ -70,7 +70,7 @@ const categories = [
       "Gas & Oil",
       "Repairs & Tires",
       "License & Taxes",
-      "Bus/Train Passes"
+      "Bus/Train/Tram Passes"
     ]
   },{
     name: "Debt",
@@ -97,11 +97,11 @@ const categories = [
     maxPercent: 10,
     startPercent: 5,
     subCategories: [
+      "Vitamins",
       "Medications",
       "Doctors Bills",
       "Dentist",
-      "Optometrist",
-      "Vitamins"
+      "Optometrist"
     ]
   },{
     name: "Personal",
@@ -109,17 +109,17 @@ const categories = [
     maxPercent: 10,
     startPercent: 5,
     subCategories: [
-      "Child Care/Sitter",
+      "Pocket Money",
       "Toiletries",
+      "Subscriptions",
+      "Organization Dues",
       "Cosmetics/Hair Care",
       "Education/Tuition",
       "Books/Supplies",
+      "Baby Supplies",
+      "Child Care/Sitter",
       "Child Support",
       "Alimony",
-      "Subscriptions",
-      "Organization Dues",
-      "Pocket Money",
-      "Baby Supplies",
       "Pet Supplies",
       "Music/Technology",
       "Misculaneous"
@@ -141,11 +141,11 @@ const categories = [
     maxPercent: 10,
     startPercent: 5,
     subCategories: [
-      "Vacation",
+      "Emergency Fund",
       "Christmas",
       "Birthdays",
-      "Retirement",
-      "Emergency Fund"
+      "Vacation",
+      "Retirement"
     ]
   },{
     name: "Clothing",
@@ -155,7 +155,8 @@ const categories = [
     subCategories: [
       "Adults", 
       "Children", 
-      "Cleaning/Laundry"]
+      "Cleaning/Laundry"
+    ]
   }
 ];
 

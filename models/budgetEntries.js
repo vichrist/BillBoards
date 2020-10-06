@@ -1,29 +1,31 @@
 module.exports = function(sequelize, DataTypes) {
-    const Entries = sequelize.define("Entries", {
-      business: {
-        type: DataTypes.BOOLEAN
-      },
-      budgetExpences: {
-        type: DataTypes.BOOLEAN
-      },
-      amount: {
-          type: DataTypes.DECIMAL
-      },
-      name: {
-          type: DataTypes.STRING
-      },
-      budgetEntriescol: {
-          type: DataTypes.STRING
+  const BudgetEntries = sequelize.define("BudgetEntries", {
+    business: {
+      type: DataTypes.BOOLEAN
+    },
+    budgetExpense: {
+      type: DataTypes.BOOLEAN
+    },
+    amount: {
+      type: DataTypes.DECIMAL
+    },
+    name: {
+      type: DataTypes.STRING
+    },
+    category: {
+      type: DataTypes.STRING
+    }
+    // dueDate: {
+    //   type: DataTypes.DATETIME
+    // }
+  });
+
+  BudgetEntries.associate = function(models) {
+    BudgetEntries.belongsTo(models.Budgets, {
+      foreignKey: {
+        allowNull: false
       }
-    
     });
-    
-    Entries.associate = function(models) {
-      Entries.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
-    };
-    return Entries;
   };
+  return BudgetEntries;
+};

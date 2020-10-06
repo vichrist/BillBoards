@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
   });
   //categories belongs to a user -- a category cannot be created without a user due to the foreign key constraint
   Categories.associate = function(models) {
-    Categories.belongsTo(models.User, {
+    Categories.belongsTo(models.Users, {
       foreignKey: {
         allowNull: false
       }
