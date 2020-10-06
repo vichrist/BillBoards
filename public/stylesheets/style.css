@@ -20,7 +20,7 @@ color: #ffffff6b;
   font-size: 1.4rem;
 }
 header {
-  color: blue;
+  color: rgb(190, 168, 39);
 }
 body {
   background-image: url("https://walkingwhileblackthemovie.com/wp-content/uploads/2016/11/Dark-blue-pattern-wallpaper.jpg");
@@ -62,10 +62,12 @@ border-width: 1px;
 /** create_budget **/
 .create, h3{
   text-align:center;
-  color: rgb(14, 13, 13);
+  color: rgb(10, 10, 10);
+  
 }
 .form-group {
   padding-top: 10px;
+  color: white;
 }
 .select_budget, h5 {
   padding-top: 20px;
@@ -83,10 +85,40 @@ border-width: 1px;
  text-align: left;
  font-family: Arial, Helvetica, sans-serif;
  font-weight: bold;
- color: black;
- background-color: rgb(232, 240, 243);
- box-shadow: 20px 20px 50px #6b7e7d, 
-           -30px -30px 60px #ccdddd;
- 
+ background-color: rgb(86, 125, 139);
+  color: rgb(12, 11, 11);
+  padding: 15px;
+	width: 500px;
+	background: #2f3f55;
+	margin: 50px auto;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+	-webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
 }
-
+.form[type="viewButton"], 
+.form[type="createButton"]{
+	-moz-box-shadow: inset 0px 1px 0px 0px;
+	-webkit-box-shadow: inset 0px 1px 0px 0px ;
+	box-shadow: inset 0px 1px 0px 0px;
+	border: 1px solid;
+	display: inline-block;
+	cursor: pointer;
+	color: #FFFFFF;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 14px;
+	padding: 8px 18px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.form[type="viewButton"]:hover, 
+.form[type="createButton"]:hover {
+	background:linear-gradient(to bottom, 5%, 100%);
+	
+}
+h2 {
+  color: white;
+  padding: 20px;
+}
+p{
+  color: white;
+}
