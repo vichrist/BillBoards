@@ -1,16 +1,13 @@
 form.signup,
 form.login {
-	margin-top: 100px;
-	color: white;
-}
+  margin-top: 100px;
 
-h2, p {
-	color: white;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
+.navgrid_7{
+  text-align: right;
+  font-size: 1.5rem;
+}
+}
 h1 {
   text-align: center;
   border-bottom-width: 5px;
@@ -22,19 +19,27 @@ color: #ffffffdc;
 }
 
 body {
-  background-image: url("https://walkingwhileblackthemovie.com/wp-content/uploads/2016/11/Dark-blue-pattern-wallpaper.jpg");
-  background-color: black;
+  background-image: url('https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg');
   height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .subcategory-row {
   background-color: #f9f9f9;
 }
  
+/** budget accordian page **/
+#accordion {
+  width: 60%;
+  margin-top: 100px;
+  height: 50%;
+  margin-left: 250px;
+}
 
 
 
- 
 
 /** create_budget **/
 .select_budget, h5 {
@@ -74,7 +79,6 @@ body {
 	
 }
 
-<<<<<<< HEAD
  
 /** create_budget **/
 .create, h3{
@@ -87,5 +91,3 @@ body {
 .select_budget, h5 {
   padding-top: 20px;
 }
-=======
->>>>>>> master
