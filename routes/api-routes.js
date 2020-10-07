@@ -88,11 +88,11 @@ module.exports = function(app) {
       UserId: req.body.UserId
     }).then(postBudgets => {
       res.json(postBudgets);
-    })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // post new category

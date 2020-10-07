@@ -28,27 +28,25 @@ module.exports = function(app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/budgets", isAuthenticated, (req, res) => {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
-    // console.log('req.user: ', req.user);
+    console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
 
-    // db.Budgets.findAll({
-    //   where: {
-    //     UserId: req.params.userId
-    //   },
-    //   include: [db.BudgetEntries]
-    // }).then(budgets => {
-      res.render("index", { category: categories });
-    // });
+    db.Budgets.findAll({
+      where: {
+        UserId: req.user.id
+      },
+      include: [db.BudgetEntries]
+    }).then(budgets => {
+      console.log('budgets: ', budgets);
+
+      res.render("index", { category: categories, budget: budgets });
+    });
 
     // res.sendFile(path.join(__dirname, "../public/budgets.html"));
   });
 
   app.get("/create-budget", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/create-budget.html"));
-  });
-
-  app.get("/viewbudgets", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/viewbudgets.html"));
   });
 
 };
