@@ -1,46 +1,46 @@
 <div class="Header">
-    <div class="navgrid_7">
-        <a href="">Home</a> / <a href="">Logout</a>
-    </div>
+  <div class="navgrid_7">
+    <a href="">Home</a> / <a href="">Logout</a>
+  </div>
 </div>
 <div class="wrapper">
-    <h1>
-        BILLBOARD
-    </h1>
+  <h1>
+    BILLBOARD
+  </h1>
 </div>
 
 <div id="accordion">
   {{#each category}}
-    <h3>
-      {{this.name}}
-      <span>$40.00</span>
-      <span>____ 0%</span>
-      <label class="suggestion">__________________ Suggestion:</label>
-      <span>${{this.suggested}}</span>
-      <input value="{{this.startPercent}}%" style="width: 50px;">
-    </h3>
-      <div>
-        {{#each budget}}
-          <span>{{this.name}}</span>
-          <span>${{this.amount}}</span>
+  <h3>
+    {{this.name}}
+    <span>$40.00</span>
+    <span>____ 0%</span>
+    <label class="suggestion">__________________ Suggestion:</label>
+    <span>${{this.suggested}}</span>
+    <input value="{{this.startPercent}}%" style="width: 50px;">
+  </h3>
+  <div>
+    {{#each budget}}
+    <span>{{this.name}}</span>
+    <span>${{this.amount}}</span>
+    {{/each}}
+    <form>
+      <label>Add item: </label>
+      <input class="entry-name" list={{this.name}} name="subcategory">
+      <datalist id={{this.name}}>
+        {{#each this.subCategories}}
+        <option value="{{this}}"></option>
         {{/each}}
-        <form >
-          <label>Add item: </label>
-          <input class="entry-name" list={{this.name}} name="subcategory">
-          <datalist id={{this.name}}>
-          {{#each this.subCategories}}
-              <option value="{{this}}" ></option>
-          {{/each}}
-          </datalist>
-          <label>Amount: </label>
-          <input type="text" class="entry-amount">
-          <label>For: </label>
-          <select name="entry-type" class="entry-type">
-            <option value="Budgeting">Budgeting</option>
-            <option value="Expense">Expense</option>
-          </select>
-          <button class="save">Save</button>
-        </form>
-      </div>
+      </datalist>
+      <label>Amount: </label>
+      <input type="text" class="entry-amount">
+      <label>For: </label>
+      <select name="entry-type" class="entry-type">
+        <option value="Budgeting">Budgeting</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <button class="save">Save</button>
+    </form>
+  </div>
   {{/each}}
 </div>
