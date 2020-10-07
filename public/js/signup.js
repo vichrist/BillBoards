@@ -1,3 +1,5 @@
+// const categories = require("categories");
+
 $(document).ready(() => {
   // Getting references to our form and input
   const signUpForm = $("form.signup");
@@ -29,6 +31,7 @@ $(document).ready(() => {
       password: password
     })
       .then(() => {
+        // window.location.render("/budget");
         window.location.replace("/create-budget");
       })
       // If there's an error, handle it by throwing up a bootstrap alert
