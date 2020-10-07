@@ -29,9 +29,10 @@ $(document).ready(() => {
       password: password
     })
       .then(() => {
-        window.location.replace("/members");
-        // If there's an error, handle it by throwing up a bootstrap alert
+        window.location.render("index", { category: categories });
+        // window.location.replace("/create-budget");
       })
+      // If there's an error, handle it by throwing up a bootstrap alert
       .catch(handleLoginErr);
   }
 

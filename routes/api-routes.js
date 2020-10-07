@@ -19,7 +19,8 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    db.User.create({
+    console.log("signing up");
+    db.Users.create({
       email: req.body.email,
       password: req.body.password
     })
@@ -54,49 +55,130 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
+    console.log(`Getting all budgets for user #${req.params.userId}`)
     db.Budgets.findAll({
       where: {
-        userId: req.param.userId
+        UserId: req.params.userId
       },
       include: [db.BudgetEntries]
     }).then(all => {
       res.json(all);
     });
   });
-  // post a budget
-  app.post("/api/post/budgets", (req, res) => {
-    db.Budgets.create({
-      budgetName: req.body.budgetName
-    }).then(postBudgets => {
-      res.json(postBudgets);
+
+  // get a budget
+  app.get("/api/budget/:userId/:budgetName", (req, res) => {
+    console.log(`getting the ${req.params.budgetName} budget`);
+    db.Budgets.findOne({
+      where: {
+        UserId: req.params.userId,
+        budgetName: req.params.budgetName
+      }
+    }).then(response => {
+      res.json(response);
     });
   });
+
+  // post a budget
+  app.post("/api/post/budget", (req, res) => {
+    console.log(`Adding new budget for user #${req.body.UserId}`)
+    db.Budgets.create({
+      business: req.body.business,
+      budgetName: req.body.budgetName,
+      UserId: req.body.UserId
+    }).then(postBudgets => {
+      res.json(postBudgets);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
+    });
+  });
+
   // post new category
-  app.post("/api/post/categories", (req, res) => {
+  app.post("/api/post/category", (req, res) => {
+    console.log(`Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`);
     db.Categories.create({
       categoryName: req.body.categoryName,
       subcategoryName: req.body.subcategoryName
     }).then(postCategories => {
       res.json(postCategories);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
     });
   });
 
   // post budget entry to budgetId
   app.post("/api/post/budget-entries", (req, res) => {
+    console.log(`Adding a budget entry for ${req.body.name}`);
     db.BudgetEntries.create({
-      name: req.body.name, // not so sure we need this line here
-      budgetId: req.body.budgetId
+      business: req.body.business,
+      budgetExpense: req.body.budgetExpense,
+      amount: req.body.amount,
+      name: req.body.name,
+      category: req.body.category,
+      BudgetId: req.body.BudgetId
     }).then(postBudgetEntries => {
       res.json(postBudgetEntries);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
     });
   });
 
+  // delete a budget
+  app.delete("/api/budget/:id", (req, res) => {
+    db.Budgets.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(deleteBudget => {
+      res.json(deleteBudget);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
+    });
+  });
+
+  // delete a budget-entry
+  app.delete("/api/budget-entries/:id", (req, res) => {
+    db.BudgetEntries.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(deleteBudgetEntry => {
+      res.json(deleteBudgetEntry);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
+    });
+  });
+
+  // delete a category
+  app.delete("/api/categories/:id", (req, res) => {
+    db.Categories.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(deleteCategory => {
+      res.json(deleteCategory);
+    })
+    .catch(function(err) {
+      res.json(err);
+      console.log(err);
+    });
+  });
 
   // // get all budget entries for budgetId
   // app.get("api/budget-entries/:budgetId", (req, res) => {
   //   db.BudgetEntries.findAll({
   //     where: {
-  //       budgetId: req.param.budgetId
+  //       budgetId: req.params.budgetId
   //     }
   //   }).then(all => {
   //     res.json(all);
@@ -107,8 +189,8 @@ module.exports = function(app) {
   // app.get("api/budget-entries/:budgetId/:categoryId", (req, res) => {
   //   db.BudgetEntries.findAll({
   //     where: {
-  //       budgetId: req.param.budgetId,
-  //       categoriesId: req.param.categoriesId
+  //       budgetId: req.params.budgetId,
+  //       categoriesId: req.params.categoriesId
   //     }
   //   }).then(all => {
   //     res.json(all);
