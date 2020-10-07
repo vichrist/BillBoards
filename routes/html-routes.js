@@ -30,16 +30,16 @@ module.exports = function(app) {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
-    db.Budgets.findAll({
-      where: {
-        UserId: req.params.userId
-      },
-      include: [db.BudgetEntries]
-    }).then(all => {
-      res.json(all);
-    });
 
-    res.render("index", { category: categories, budget: budget });
+    // db.Budgets.findAll({
+    //   where: {
+    //     UserId: req.params.userId
+    //   },
+    //   include: [db.BudgetEntries]
+    // }).then(budget => {
+      res.render("index", { category: categories });
+    // });
+
     // res.sendFile(path.join(__dirname, "../public/budgets.html"));
   });
 
