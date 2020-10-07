@@ -15,7 +15,7 @@ h1 {
   border-color: #eff7f7d2;
   font-family: 'Rokkitt', serif;
   font-size: 3rem;
-color: #ffffffdc;
+	color: #ffffffdc;
 }
 
 body {
@@ -27,11 +27,19 @@ body {
 .subcategory-row {
   background-color: #f9f9f9;
 }
- 
 
+span {
+	margin-left: 20px;
+}
 
+.suggestion {
+	color: #9eabb1;
+}
 
- 
+#suggestion {
+
+}
+
 
 /** create_budget **/
 .select_budget, h5 {
@@ -40,10 +48,10 @@ body {
 }
 
 .form {
- text-align: center;
- font-family: Arial, Helvetica, sans-serif;
- font-weight: bold;
- background-color: rgb(86, 125, 139);
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	background-color: rgb(86, 125, 139);
   color: rgb(252, 249, 249);
   padding: 15px;
 	width: 600px;

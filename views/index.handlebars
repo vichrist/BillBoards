@@ -14,10 +14,14 @@
     <h3>
       {{this.name}}
       <span>$40.00</span>
-      <span>____ 0%</span>
-      <label class="suggestion">__________________ Suggestion:</label>
-      <span>${{this.suggested}}</span>
-      <input value="{{this.startPercent}}%" style="width: 50px;">
+      <span>0%</span>
+      <span id="suggestion">
+        {{!-- <label class="suggestion">Suggestion:</label> --}}
+        <span class="suggestion">${{this.suggested}}</span>
+        <span class="suggestion">[{{this.startPercent}}%]</span>
+        <span class="suggestion">(Range: {{this.minPercent}}% to {{this.maxPercent}}%)</span>
+      </span>
+      {{!-- <input value="{{this.startPercent}}%" style="width: 50px;"> --}}
     </h3>
       <div>
         {{#each budget}}

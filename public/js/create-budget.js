@@ -2,7 +2,7 @@
 
 $(document).ready(() => {
   // listen for submit on create budget form
-  $(".form").on("submit", e => {
+  $("#createButton").on("click", e => {
     e.preventDefault();
     const budgetType = $("#business")[0].checked; //check business radio button
     console.log('budgetType: ', budgetType);
@@ -37,13 +37,8 @@ $(document).ready(() => {
           }).then(res => {
             console.log('res: ', res);
             // route to budgets view page
-            $.get("/budgets").then(() => {
-              $.get("/api/budget/estimate").then(est => {
-                console.log('est: ', est);
-            });
-
+            window.location.replace("/budgets");
               // eslint-disable-next-line no-empty-function
-            });
           });
         });
       });
