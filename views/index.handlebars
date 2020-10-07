@@ -1,13 +1,21 @@
 <div id="accordion">
   {{#each category}}
-    <h3>{{this.name}}</h3>
-    {{#each this.subCategories}}
+    <h3>
+      {{this.name}}
+      <input value="333.00">
+    </h3>
       <div>
         <p>
-          text
-        {{!-- {{this}} --}}
+          <ul>
+            {{#each this.subCategories}}
+              <li>
+                <lable>{{this}}</lable>
+                <input value = "10.00">
+
+              </li>
+            {{/each}}
+          </ul>
         </p>
       </div>
-    {{/each}}
   {{/each}}
 </div>
