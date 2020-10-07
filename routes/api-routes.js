@@ -1,7 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
-const budgetEntries = require("../models/budgetEntries");
+// const budgetEntries = require("../models/budgetEntries");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -86,13 +86,14 @@ module.exports = function(app) {
       business: req.body.business,
       budgetName: req.body.budgetName,
       UserId: req.body.UserId
-    }).then(postBudgets => {
-      res.json(postBudgets);
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(postBudgets => {
+        res.json(postBudgets);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // post new category
@@ -100,14 +101,17 @@ module.exports = function(app) {
     console.log(`Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`);
     db.Categories.create({
       categoryName: req.body.categoryName,
-      subcategoryName: req.body.subcategoryName
-    }).then(postCategories => {
-      res.json(postCategories);
+      subcategoryName: req.body.subcategoryName,
+      startPercentage: req.body.startPercentage,
+      maxPercentage: req.body.maxPercentage
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(postCategories => {
+        res.json(postCategories);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // post budget entry to budgetId
@@ -120,13 +124,14 @@ module.exports = function(app) {
       name: req.body.name,
       category: req.body.category,
       BudgetId: req.body.BudgetId
-    }).then(postBudgetEntries => {
-      res.json(postBudgetEntries);
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(postBudgetEntries => {
+        res.json(postBudgetEntries);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // delete a budget
@@ -135,13 +140,14 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(deleteBudget => {
-      res.json(deleteBudget);
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(deleteBudget => {
+        res.json(deleteBudget);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // delete a budget-entry
@@ -150,13 +156,14 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(deleteBudgetEntry => {
-      res.json(deleteBudgetEntry);
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(deleteBudgetEntry => {
+        res.json(deleteBudgetEntry);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // delete a category
@@ -165,13 +172,14 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(deleteCategory => {
-      res.json(deleteCategory);
     })
-    .catch(function(err) {
-      res.json(err);
-      console.log(err);
-    });
+      .then(deleteCategory => {
+        res.json(deleteCategory);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
   });
 
   // // get all budget entries for budgetId
@@ -196,24 +204,4 @@ module.exports = function(app) {
   //     res.json(all);
   //   });
   // });
-
-  // post mileage start time
-
-  // return timeid
-
-  // post mileage end time for timeId
-
-  // get all mileage for userId
-
-  // get mileage for a description
-
-  // post start time
-
-  // return timeId
-
-  // post end time for timeid
-
-  // get all times for userId
-
-  // get all times for a description
 };

@@ -13,29 +13,34 @@
   {{#each category}}
     <h3>
       {{this.name}}
-      <span>Actual: </span>
       <span>$40.00</span>
-      <span>______ 0%</span>
-      <label>__________________ Sugestion:</label>
-      <span>_____________ $300.00</span>
-      <input value="15%">
+      <span>____ 0%</span>
+      <label class="suggestion">__________________ Suggestion:</label>
+      <span>${{this.suggested}}</span>
+      <input value="{{this.startPercent}}%" style="width: 50px;">
     </h3>
       <div>
-        <ul>
+        {{#each budget}}
+          <span>{{this.name}}</span>
+          <span>${{this.amount}}</span>
+        {{/each}}
+        <form >
+          <label>Add item: </label>
+          <input class="entry-name" list={{this.name}} name="subcategory">
+          <datalist id={{this.name}}>
           {{#each this.subCategories}}
-            <li>
-              <lable>{{this}}</lable>
-              <input value = "10.00">
-
-            </li>
+              <option value="{{this}}" ></option>
           {{/each}}
-          <li>
-            <label>New item: </label>
-            <input type="text">
-            <label>Amount: </label>
-            <input type="text">
-          </li>
-        </ul>
+          </datalist>
+          <label>Amount: </label>
+          <input type="text" class="entry-amount">
+          <label>For: </label>
+          <select name="entry-type" class="entry-type">
+            <option value="Budgeting">Budgeting</option>
+            <option value="Expense">Expense</option>
+          </select>
+          <button class="save">Save</button>
+        </form>
       </div>
   {{/each}}
 </div>
