@@ -1,27 +1,41 @@
+<div class="Header">
+    <div class="navgrid_7">
+        <a href="">Home</a> / <a href="">Logout</a>
+    </div>
+</div>
+<div class="wrapper">
+    <h1>
+        BILLBOARD
+    </h1>
+</div>
+
 <div id="accordion">
   {{#each category}}
     <h3>
       {{this.name}}
-      <input value="333.00">
+      <span>Actual: </span>
+      <span>$40.00</span>
+      <span>______ 0%</span>
+      <label>__________________ Sugestion:</label>
+      <span>_____________ $300.00</span>
+      <input value="15%">
     </h3>
       <div>
-        <p>
-          <ul>
-            {{#each this.subCategories}}
-              <li>
-                <lable>{{this}}</lable>
-                <input value = "10.00">
-
-              </li>
-            {{/each}}
+        <ul>
+          {{#each this.subCategories}}
             <li>
-              <label>New item: </label>
-              <input type="text">
-              <label>Amount: </label>
-              <input type="text">
+              <lable>{{this}}</lable>
+              <input value = "10.00">
+
             </li>
-          </ul>
-        </p>
+          {{/each}}
+          <li>
+            <label>New item: </label>
+            <input type="text">
+            <label>Amount: </label>
+            <input type="text">
+          </li>
+        </ul>
       </div>
   {{/each}}
 </div>
