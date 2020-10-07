@@ -1,4 +1,4 @@
-DELETE http://localhost:8080/api/budget/id
+GET http://localhost:8080/api/signup 
 
 
 
