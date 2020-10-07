@@ -1,7 +1,6 @@
 $(document).ready(() => {
-//   $('.subcategory-row').hide();
-
     $( "#accordion" ).accordion();
+
 
 //     $(document).on("click", ".todo-item", editTodo);
 //     $(document).on("keyup", ".todo-item", finishEdit);
@@ -55,4 +54,6 @@ $(document).ready(() => {
 //       data: todo
 //     }).then(getTodos);
 //   }
+
+
 });
