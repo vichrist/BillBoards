@@ -1,4 +1,4 @@
-const categories = [
+const personalCategories = [
   {
     name: "Income",
     subCategories: [
@@ -160,4 +160,50 @@ const categories = [
   }
 ];
 
-module.exports = categories;
+const businessCategories = [
+  {
+    name: "Income",
+    subCategories: ["Daily", "Weekly", "Bi-Weekly", "Monthly", "One Time"]
+  },{
+    name: "Employees",
+    minPercent: 5,
+    maxPercent: 50,
+    startPercent: 25,
+    subCategories: []
+  },{
+    name: "Property",
+    minPercent: 5,
+    maxPercent: 25,
+    startPercent: 10,
+    subCategories: []
+  },{
+    name: "Advertising",
+    minPercent: 5,
+    maxPercent: 25,
+    startPercent: 20,
+    subCategories: []
+  },{
+    name: "Petty cash",
+    minPercent: 2,
+    maxPercent: 10,
+    startPercent: 5,
+    subCategories: []
+  },{
+    name: "Insurance",
+    minPercent: 5,
+    maxPercent: 10,
+    startPercent: 5,
+    subCategories: []
+  },{
+    name: "Miscellaneous",
+    minPercent: 5,
+    maxPercent: 30,
+    startPercent: 15,
+    subCategories: []
+  }
+];
+
+module.exports = {
+  personalCategories,
+  businessCategories
+};

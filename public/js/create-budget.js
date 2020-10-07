@@ -37,11 +37,12 @@ $(document).ready(() => {
           }).then(res => {
             console.log('res: ', res);
             // route to budgets view page
-            $.get("/api/budget/estimate").then(est => {
-              console.log('est: ', est);
+            $.get("/budgets").then(() => {
+              $.get("/api/budget/estimate").then(est => {
+                console.log('est: ', est);
+            });
 
               // eslint-disable-next-line no-empty-function
-              $.get("/budgets");
             });
           });
         });

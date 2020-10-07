@@ -1,6 +1,11 @@
 form.signup,
 form.login {
-  margin-top: 100px;
+	margin-top: 100px;
+	color: white;
+}
+
+h2, p {
+	color: white;
 }
 
 h1 {
@@ -12,6 +17,7 @@ h1 {
   font-size: 3rem;
 color: #ffffffdc;
 }
+
 body {
   background-image: url("https://walkingwhileblackthemovie.com/wp-content/uploads/2016/11/Dark-blue-pattern-wallpaper.jpg");
   background-color: black;
