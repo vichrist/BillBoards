@@ -50,7 +50,7 @@ $(document).ready(() => {
   // listen for view button click and send to viewbudgets page
   $("#viewButton").on("click", e => {
     // route to budgets view page
-    $.get("/viewbudgets");
+    $.get("/budgets");
   });
 
 });

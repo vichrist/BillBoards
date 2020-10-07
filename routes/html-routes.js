@@ -36,7 +36,7 @@ module.exports = function(app) {
     //     UserId: req.params.userId
     //   },
     //   include: [db.BudgetEntries]
-    // }).then(budget => {
+    // }).then(budgets => {
       res.render("index", { category: categories });
     // });
 

@@ -3,6 +3,7 @@ $(document).ready(() => {
 
     $( "#accordion" ).accordion();
 
+
     // $('.category-row').click(function (event) {
     //     var subcategory_class, category_id;
     //     category_id = $(this).attr('id');
