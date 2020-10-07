@@ -1,10 +1,10 @@
 $(document).ready(() => {
-    $( "#accordion" ).accordion();
+  $("#accordion").accordion();
 
 
-//     $(document).on("click", ".todo-item", editTodo);
-//     $(document).on("keyup", ".todo-item", finishEdit);
-//     $(document).on("blur", ".todo-item", cancelEdit);
+//     $(document).on("click", ".amount", editTodo); //waits for click on item
+//     $(document).on("keyup", ".amount", finishEdit); //waits for enter to be pressed
+//     $(document).on("blur", ".amount", cancelEdit); //waits for focus to change then moves
 
 //   // This function grabs todos from the database and updates the view
 //   function getTodos() {
@@ -55,5 +55,30 @@ $(document).ready(() => {
 //     }).then(getTodos);
 //   }
 
+// function updateList(listElement)
+
+// });
+
+// function createNewRow(todo) {
+//     var $newInputRow = $(
+//       [
+//         "<li class='list-group-item todo-item'>",
+//         "<span>",
+//         todo.text,
+//         "</span>",
+//         "<input type='text' class='edit' style='display: none;'>",
+//         "<button class='delete btn btn-danger'>x</button>",
+//         "<button class='complete btn btn-primary'>✓</button>",
+//         "</li>"
+//       ].join("")
+//     );
+
+//     $newInputRow.find("button.delete").data("id", todo.id);
+//     $newInputRow.find("input.edit").css("display", "none");
+//     $newInputRow.data("todo", todo);
+//     if (todo.complete) {
+//       $newInputRow.find("span").css("text-decoration", "line-through");
+//     }
+//     return $newInputRow;
 
 });

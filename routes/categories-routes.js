@@ -5,16 +5,21 @@ module.exports = function(app) {
   // Get budget estimate for categories
   app.get("/api/budget/estimate", (req, res) => {
     // get all incomes to find total income
+    makeEstimate((estimate) => {
+      console.log('estimate: ', estimate);
+      res.json(estimate);
+    });
+  });
+
+  function makeEstimate(cb) {
     db.BudgetEntries.findAll({
       where: {
         category: "Income"
       }
     }).then(incomes => {
       console.log('incomes: ', incomes);
-      
-  
       if (!incomes) {
-        return res.json(null);
+        res.json(null);
       }
 
       // add up incomes except One Time incomes
@@ -26,10 +31,13 @@ module.exports = function(app) {
 
         if (inc.name !== "One Time") {
           switch (inc.name) {
+            case "Daily":
+              inc.amount *= 30;
+              break;
             case "Weekly":
               inc.amount *= 4;
               break;
-            case "Biweekly":
+            case "Bi-weekly":
               inc.amount *= 2;
               break;
           }
@@ -40,26 +48,25 @@ module.exports = function(app) {
       console.log('totalIncome: ', totalIncome);
 
       // create estimate objects for each category
-      const estimate = categories;
-      let curTotal = 0;
-      for (i = 1; i < estimate.length; i++) {
+      const estimate = categories.personalCategories;
+      // let curTotal = 0;
+      for (i = 0; i < estimate.length; i++) {
         let c = estimate[i];
-        if (c.startPercent !== null) {
-          if (i < estimate.length - 1) {
-            c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
-            curTotal += parseFloat(c.suggested);
-          } else {
-            c.suggested = (totalIncome - curTotal).toFixed(2);
-          }
+        console.log('c: ', c);
+        if (i === 0) {
+          c.suggested = totalIncome;
+        } else {
+          c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
+          console.log('c.suggested: ', c.suggested);
         }
       }
       
-      console.log('curTotal: ', curTotal);
+      // console.log('curTotal: ', curTotal);
       console.log('totalIncome: ', totalIncome);
-      console.log('estimate: ', estimate);
+      
       
       // return estimate
-      return res.json(estimate);
+      cb(estimate);
     });
-  });
+  };
 };

@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN
     },
     amount: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.FLOAT
     },
     name: {
       type: DataTypes.STRING
