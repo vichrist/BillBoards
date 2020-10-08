@@ -2,6 +2,46 @@ $(document).ready(() => {
   $("#accordion").accordion();
 
 
+ $(".save").on("click", function handleFormSubmit(event) {
+  event.preventDefault();
+  // Wont submit the budget if we are missing an entry field
+  var postCategorySelect = $("#category");
+  var nameInput = $("#entry-name");
+  var amountInput = $("entry-amount");
+  var typeInput = $("entry-type");
+
+  if (!nameInput.val().trim() || !amountInput.val().trim() || !typeInput.val().trim()) {
+    return;
+  }
+  // Constructing a budget object to hand to the database
+  var budget = {
+    name: nameInput.val().trim(),
+    amount: amountInput.val().trim(),
+    type: typeInput.val().trim(),
+    category: postCategorySelect.val()
+  };
+
+  console.log(budget);
+
+  // If we're updating a budget run updateBudget to update a budget
+  // Otherwise run submitBudget to create a whole new budget
+ 
+  submitBudget(budget);
+
+});
+
+// Submits a new post and brings user to blog page upon completion
+function submitBudget(budget) {
+  $.post("/api/post/budget-entries", budget, function() {
+    window.location.href = "/budgets";
+  });
+}
+
+
+
+
+
+
 //     $(document).on("click", ".amount", editTodo); //waits for click on item
 //     $(document).on("keyup", ".amount", finishEdit); //waits for enter to be pressed
 //     $(document).on("blur", ".amount", cancelEdit); //waits for focus to change then moves
