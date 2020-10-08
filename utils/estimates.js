@@ -103,12 +103,12 @@ function calculateSum(req, cb) {
       c.expenseTotal = 0;
 
       for (x = 0; x < all[0].BudgetEntries.length; x++) {
-        let x = all[0].BudgetEntries[i]; 
+        let b = all[0].BudgetEntries[x]; 
         console.log(x); 
         if (c.budgetExpense === false) {
-          c.budgetTotal += x.amount;
+          c.budgetTotal += b.amount;
         } else {
-          c.expenseTotal += x.amount;
+          c.expenseTotal += b.amount;
           console.log("c.expenseTotal :" , c.expenseTotal);
       }};}
       cb(all);
