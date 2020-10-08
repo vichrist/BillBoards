@@ -3,8 +3,7 @@ const path = require("path");
 // const {personalCategories} = require("../utils/categories.js");
 const {
   makeEstimate,
-  getBudgetEntriesCategory,
-  calculateSum
+  getBudgetEntriesCategory
 } = require("../utils/estimates.js");
 const db = require("../models");
 
@@ -35,35 +34,10 @@ module.exports = function(app) {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
-    getBudgetEntriesCategory(req, "Income", income => {
-      console.log("income: ", income);
-      db.Budgets.findAll({
-        where: {
-          UserId: req.user.id
-        },
-        include: [db.BudgetEntries]
-      }).then(budgets => {
-        const entries = budgets[0].BudgetEntries;
-        for (i = 0; i < entries.length; i++) {
-          if (entries[i].category === "Income") {
-            entries.splice(i, 1);
-          }
-        }
-
-        // console.log('personalCategories: ', personalCategories);
-        // console.log('budgets Name: ', budgets[0].budgetName);
-        // console.log('budgets entries: ', entries);
-        // console.log('budgets entry amount: ', entries[0].amount);
-
-        makeEstimate(req, est => {
-          calculateSum(req, counts => {
-            res.render("index", {
-              category: est,
-              budget: entries,
-              income: income
-            });
-          }); 
-        });
+    makeEstimate(req, est => {
+      res.render("index", {
+        category: est,
+        income: est.income
       });
     });
   });
