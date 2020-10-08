@@ -3,7 +3,8 @@ const path = require("path");
 // const {personalCategories} = require("../utils/categories.js");
 const {
   makeEstimate,
-  getBudgetEntriesCategory
+  getBudgetEntriesCategory,
+  calculateSum
 } = require("../utils/estimates.js");
 const db = require("../models");
 
@@ -55,11 +56,13 @@ module.exports = function(app) {
         // console.log('budgets entry amount: ', entries[0].amount);
 
         makeEstimate(req, est => {
-          res.render("index", {
-            category: est,
-            budget: entries,
-            income: income
-          });
+          calculateSum(req, counts => {
+            res.render("index", {
+              category: est,
+              budget: entries,
+              income: income
+            });
+          }); 
         });
       });
     });
