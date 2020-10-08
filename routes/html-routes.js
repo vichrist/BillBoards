@@ -58,5 +58,4 @@ module.exports = function(app) {
   app.get("/create-budget", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/create-budget.html"));
   });
-
 };
