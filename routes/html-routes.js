@@ -32,35 +32,28 @@ module.exports = function(app) {
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
     getBudgetEntriesCategory("Income",income => {
-
-    })
-    db.Budgets.findAll({
-      where: {
-        UserId: req.user.id
-      },
-      include: {
-        model: [db.BudgetEntries],
+      db.Budgets.findAll({
         where: {
-          category: {$notin: "Income"}
-        }
-      }]
-    }).then(budgets => {
-      // console.log('personalCategories: ', personalCategories);
-      // console.log('budgets Name: ', budgets[0].budgetName);
-      const entries = budgets[0].BudgetEntries;
-      const income = entries.splice(0, 1);
-      // console.log('budgets entries: ', entries);
-      // console.log('budgets entry amount: ', entries[0].amount);
-
-      makeEstimate(est => {
-        res.render("index", { category: est, budget: entries });
+          UserId: req.user.id
+        },
+        include: [db.BudgetEntries]
       })
-
-    });
-
+    }).then(budgets => {
+        // console.log('personalCategories: ', personalCategories);
+        // console.log('budgets Name: ', budgets[0].budgetName);
+        const entries = budgets[0].BudgetEntries;
+        const income = entries.splice(0, 1);
+        // console.log('budgets entries: ', entries);
+        // console.log('budgets entry amount: ', entries[0].amount);
+  
+        makeEstimate(est => {
+          res.render("index", { category: est, budget: entries });
+        })
+      });
+    })
     // res.sendFile(path.join(__dirname, "../public/budgets.html"));
+
     app.get("/create-budget", isAuthenticated, (req, res) => {
       res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     });
-});
-
+}
