@@ -2,7 +2,7 @@ $(document).ready(() => {
   $("#accordion").accordion();
 
 
- $(".save").on("click", function handleFormSubmit(event) {
+ $(".save").on("click", (event) => {
   event.preventDefault();
   // Wont submit the budget if we are missing an entry field
   let postCategorySelect = $(".category");
