@@ -45,6 +45,9 @@ span {
 
 }
 
+.entry-amount {
+	width: 80px
+}
 
 /** create_budget **/
 #accordion {
