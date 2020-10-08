@@ -29,57 +29,104 @@ function makeEstimate(req, cb) {
     // get Income budget entries for budget
     db.BudgetEntries.findAll({
       where: {
-        BudgetId: budget.id,
-        category: "Income"
+        BudgetId: budget.id
       }
-    }).then(incomes => {
+    }).then(all => {
       // console.log('incomes: ', incomes);
-      if (!incomes) {
+      if (!all) {
+        // reroute to create budget
+
         res.json(null);
       }
 
-      // add up incomes except One Time incomes
-      let totalIncome = 0;
-      incomes.forEach(inc => {
-        console.log("inc.name: ", inc.name);
-        // let inc = incObj.BudgetEntries;
-        // console.log('inc: ', inc);
-
-        // convert other types to monthly amounts
-        if (inc.name !== "One Time") {
-          switch (inc.name) {
-            case "Daily":
-              inc.amount *= 30;
-              break;
-            case "Weekly":
-              inc.amount *= 4;
-              break;
-            case "Bi-weekly":
-              inc.amount *= 2;
-              break;
-          }
-          totalIncome += inc.amount;
-        }
-      });
-
-      console.log("totalIncome: ", totalIncome);
-
       // create estimate objects for each category
       const estimate = categories.personalCategories;
-      // let curTotal = 0;
+      const inc = 0; //income index
+
+      // loop through each category to campare with
       for (i = 0; i < estimate.length; i++) {
-        const c = estimate[i];
-        console.log("c: ", c);
-        if (i === 0) {
-          c.suggested = totalIncome;
-        } else {
-          c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
-          console.log("c.suggested: ", c.suggested);
+
+
+        //stuff for all categories goes here
+
+        //initialize budgets and expenses arrays for entries
+        estimate[i].budgets = [];
+        estimate[i].expenses = [];
+        estimate[i].suggestedAmt = (
+          (estimate[i].startPercent / 100) *
+          estimate[inc].totalIncome
+        ).toFixed(2);
+        console.log("estimate[i].suggestedAmt: ", estimate[i].suggestedAmt);
+
+        //stuff specifically for income goes here
+        if (estimate[i].name === "Income") {
+          //add income specific values
+          estimate[inc].isIncome = true;
+          estimate[inc].totalIncome = 0.0;
+          console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
+          estimate[inc].allIncome = 0.0;
+          estimate[inc].totalBudgets = 0.0; //all budget entries total for all categories
+          estimate[inc].totalExpenses = 0.0; //all expense entries total for all categories
         }
+
+        // loop through each budget entry
+        all.forEach(entry => {
+          console.log("entry.name: ",entry.name);
+          console.log("entry.amount: ",entry.amount);
+          const expenseObj = {};
+          const budgetObj = {};
+
+          if (entry.category === estimate[i].name) {
+            estimate[i].budgetTotal = 0;
+            estimate[i].expensesTotal = 0;
+            estimate[i].isIncome = false;
+
+            // convert other types to monthly amounts
+            if (estimate[i].name === "Income") {
+              if (estimate[inc].name !== "One Time") {
+                switch (entry.name) {
+                  case "Daily":
+                   entry.amount *= 30;
+                    break;
+                  case "Weekly":
+                   entry.amount *= 4;
+                    break;
+                  case "Bi-weekly":
+                   entry.amount *= 2;
+                    break;
+                }
+                estimate[inc].totalIncome +=entry.amount;
+              } else {
+                estimate[inc].allIncome;
+              }
+              budgetObj.name =entry.name;
+              budgetObj.amount =entry.amount;
+              estimate[i].budgets.push(budgetObj);
+            } else {
+              if (entry.budgetExpense) {
+                estimate[i].expensesTotal +=entry.amount;
+                expenseObj.name =entry.name;
+                expenseObj.amount =entry.amount;
+                estimate[i].expenses.push(expenseObj);
+                estimate[inc].totalIncome +=entry.amount;
+                estimate[inc].totalExpenses +=entry.amount;
+              } else {
+                estimate[i].budgetTotal +=entry.amount;
+                budgetObj.name =entry.name;
+                budgetObj.amount =entry.amount;
+                estimate[i].budgets.push(budgetObj);
+                estimate[inc].totalExpenses +=entry.amount;
+                estimate[inc].totalBudgets +=entry.amount;
+              }
+            }
+          }
+        });
       }
 
-      // console.log('curTotal: ', curTotal);
-      console.log("totalIncome: ", totalIncome);
+      console.log("estimate: ", estimate);
+      console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
+      console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
+      console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
 
       // return estimate
       cb(estimate);
@@ -87,37 +134,7 @@ function makeEstimate(req, cb) {
   });
 }
 
-function calculateSum(req, cb) {
-  db.Budgets.findAll({
-    where: {
-      UserId: req.user.id
-    },
-    include: [db.BudgetEntries]
-  }).then(all => {
-    const budget = categories.personalCategories;
-    for (i = 0; i < budget.length; i++) {
-      const c = budget[i];
-      c.budgetTotal = 0;
-      c.expenseTotal = 0;
-
-      for (x = 0; x < all[0].BudgetEntries.length; x++) {
-        const b = all[0].BudgetEntries[x];
-        // console.log("b: ", b);
-
-        if (c.budgetExpense === false) {
-          c.budgetTotal += b.amount;
-        } else {
-          c.expenseTotal += b.amount;
-          console.log("c.expenseTotal :", c.expenseTotal);
-        }
-      }
-    }
-    cb(all);
-  });
-}
-
 module.exports = {
   makeEstimate,
-  getBudgetEntriesCategory,
-  calculateSum
+  getBudgetEntriesCategory
 };

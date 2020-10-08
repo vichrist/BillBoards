@@ -1,5 +1,9 @@
-$(document).ready(() => {
+$(document).ready(()=>{
   $("#accordion").accordion();
+  
+  $(".delete").on("click", function(e) {
+
+  })
 
   $(".save").on("click", function(e) {
     e.preventDefault();
@@ -11,22 +15,18 @@ $(document).ready(() => {
     console.log('name: ', name.val());
     let catgry = $(name).parent().parent().prev().text();
     console.log('catgry: ', catgry);
-    
+
     catgry = catgry.match(/[\S]+/);
     console.log('catgry: ', catgry[0]);
-    
+
     console.log("running save");
     // Wont submit the budget if we are missing an entry field
-    if (
-      !name.val().trim() ||
-      !amt.val().trim() ||
-      !type.val().trim()
-    ) {
+    if (!name.val().trim() || !amt.val().trim() || !type.val().trim()) {
       return;
     }
 
     bType = false;
-    if (type === "Budgeting") bType=true;
+    if (type === "Budgeting") bType = true;
 
     // Constructing a budget object to hand to the database
     const budget = {
@@ -130,4 +130,4 @@ $(document).ready(() => {
   //       $newInputRow.find("span").css("text-decoration", "line-through");
   //     }
   //     return $newInputRow;
-});
+})
