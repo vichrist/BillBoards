@@ -87,7 +87,37 @@ function makeEstimate(req, cb) {
   });
 }
 
+function calculateSum(req, cb) {
+  db.Budgets.findAll({
+    where: {
+      UserId: req.user.id
+    },
+    include: [db.BudgetEntries]
+  }).then(all => {
+    const budget = categories.personalCategories;
+    for (i = 0; i < budget.length; i++) {
+      const c = budget[i];
+      c.budgetTotal = 0;
+      c.expenseTotal = 0;
+
+      for (x = 0; x < all[0].BudgetEntries.length; x++) {
+        const b = all[0].BudgetEntries[x];
+        console.log("b: ", b);
+
+        if (c.budgetExpense === false) {
+          c.budgetTotal += b.amount;
+        } else {
+          c.expenseTotal += b.amount;
+          console.log("c.expenseTotal :", c.expenseTotal);
+        }
+      }
+    }
+    cb(all);
+  });
+}
+
 module.exports = {
   makeEstimate,
-  getBudgetEntriesCategory
+  getBudgetEntriesCategory,
+  calculateSum
 };
