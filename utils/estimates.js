@@ -87,26 +87,35 @@ function makeEstimate(req,cb) {
   });
 }
 
-function calculateSum() {
+function calculateSum(req, cb) {
 
-  const budget= categories.personalCategories;
-  for (i = 0; i < budget.length; i++) {
-    let c = budget[i];
-  if (budgetExpense === false) {
-    c.budgetItems = itemBudget;
-  } else {
-    c.budgetItems = ()
-  }
- 
-  const expenses = categories.personalCategories;
-  for (i = 0; i < expenses.length; i++) {
-    let c = expenses[i];
-    if (budgetExpense === true) {
-      c.budgetItems = budgetExpense;
-    } else {
-      
-    }
-}}
+  db.Budgets.findAll({
+    where: {
+      UserId: req.user.id
+    },
+    include: [db.BudgetEntries]
+  }).then(all => {
+
+    const budget= categories.personalCategories;
+    for (i = 0; i < budget.length; i++) {
+      let c = budget[i];
+      c.budgetTotal = 0;
+      c.expenseTotal = 0;
+
+      for (x = 0; x < all[0].BudgetEntries.length; x++) {
+        let x = all[0].BudgetEntries[i];  
+        if (c.budgetExpense === false) {
+          c.budgetTotal += x.amount;
+        } else {
+          c.expenseTotal += x.amount;
+          console.log("expenseTotal :" , expenseTotal);
+      }};}
+      cb(all);
+  });
+  
+};
+
+calculateSum();
 
 module.exports = {
   makeEstimate,
