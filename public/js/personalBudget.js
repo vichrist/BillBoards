@@ -5,10 +5,10 @@ $(document).ready(() => {
  $(".save").on("click", function handleFormSubmit(event) {
   event.preventDefault();
   // Wont submit the budget if we are missing an entry field
-  let postCategorySelect = $("#category");
-  let nameInput = $("#entry-name");
-  let amountInput = $("entry-amount");
-  let typeInput = $("entry-type");
+  let postCategorySelect = $(".category");
+  let nameInput = $(".entry-name");
+  let amountInput = $(".entry-amount");
+  let typeInput = $(".entry-type");
 
   if (!nameInput.val().trim() || !amountInput.val().trim() || !typeInput.val().trim()) {
     return;
