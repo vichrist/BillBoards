@@ -98,7 +98,9 @@ module.exports = function(app) {
 
   // post new category
   app.post("/api/post/category", (req, res) => {
-    console.log(`Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`);
+    console.log(
+      `Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`
+    );
     db.Categories.create({
       categoryName: req.body.categoryName,
       subcategoryName: req.body.subcategoryName,

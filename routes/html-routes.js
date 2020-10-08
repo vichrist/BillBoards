@@ -1,7 +1,7 @@
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
-const {personalCategories} = require("../utils/categories.js");
-const makeEstimate = require("../utils/estimates.js");
+// const {personalCategories} = require("../utils/categories.js");
+const { makeEstimate, getBudgetEntriesCategory } = require("../utils/estimates.js");
 const db = require("../models");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -31,32 +31,36 @@ module.exports = function(app) {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
+    getBudgetEntriesCategory("Income",income => {
 
-
+    })
     db.Budgets.findAll({
       where: {
         UserId: req.user.id
       },
-      include: [db.BudgetEntries]
+      include: {
+        model: [db.BudgetEntries],
+        where: {
+          category: {$notin: "Income"}
+        }
+      }]
     }).then(budgets => {
-      console.log('personalCategories: ', personalCategories);
-      console.log('budgets Name: ', budgets[0].budgetName);
+      // console.log('personalCategories: ', personalCategories);
+      // console.log('budgets Name: ', budgets[0].budgetName);
       const entries = budgets[0].BudgetEntries;
-      console.log('budgets entries: ', entries);
-      console.log('budgets entry amount: ', entries[0].amount);
-      
+      const income = entries.splice(0, 1);
+      // console.log('budgets entries: ', entries);
+      // console.log('budgets entry amount: ', entries[0].amount);
+
       makeEstimate(est => {
         res.render("index", { category: est, budget: entries });
-
       })
 
     });
 
     // res.sendFile(path.join(__dirname, "../public/budgets.html"));
-  });
+    app.get("/create-budget", isAuthenticated, (req, res) => {
+      res.sendFile(path.join(__dirname, "../public/create-budget.html"));
+    });
+});
 
-  app.get("/create-budget", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/create-budget.html"));
-  });
-
-};
