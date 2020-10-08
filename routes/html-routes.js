@@ -62,7 +62,7 @@ module.exports = function(app) {
               budget: entries,
               income: income
             });
-          });
+          }); 
         });
       });
     });
