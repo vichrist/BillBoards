@@ -9,7 +9,7 @@ $(document).ready(() => {
   let nameInput = $(".entry-name");
   let amountInput = $(".entry-amount");
   let typeInput = $(".entry-type");
-
+ 
   if (!nameInput.val().trim() || !amountInput.val().trim() || !typeInput.val().trim()) {
     return;
   }
@@ -31,8 +31,8 @@ $(document).ready(() => {
 });
 
 // Submits a new post and brings user to blog page upon completion
-function submitBudget(budget) {
-  $.post("/api/post/budget-entries", budget, function() {
+function submitBudget(Budget) {
+  $.post("/api/post/budget-entries", Budget, function() {
     window.location.href = "/budgets";
   });
 }
