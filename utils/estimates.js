@@ -69,12 +69,12 @@ function makeEstimate(req, cb) {
       // let curTotal = 0;
       for (i = 0; i < estimate.length; i++) {
         const c = estimate[i];
-        // console.log('c: ', c);
+        console.log("c: ", c);
         if (i === 0) {
           c.suggested = totalIncome;
         } else {
           c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
-          // console.log('c.suggested: ', c.suggested);
+          console.log("c.suggested: ", c.suggested);
         }
       }
 
