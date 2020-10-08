@@ -1,13 +1,18 @@
 form.signup,
 form.login {
-  margin-top: 100px;
-
+	margin-top: 100px;
+	color: white;
 }
+
 .navgrid_7{
   text-align: right;
   font-size: 1.5rem;
 }
+
+h2, p {
+	color: white;
 }
+
 h1 {
   text-align: center;
   border-bottom-width: 5px;
@@ -15,22 +20,36 @@ h1 {
   border-color: #eff7f7d2;
   font-family: 'Rokkitt', serif;
   font-size: 3rem;
-color: #ffffffdc;
+	color: #ffffffdc;
 }
 
 body {
-  background-image: url('https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg');
+  background-image: url("https://walkingwhileblackthemovie.com/wp-content/uploads/2016/11/Dark-blue-pattern-wallpaper.jpg");
+  background-color: black;
   height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .subcategory-row {
   background-color: #f9f9f9;
 }
- 
-/** budget accordian page **/
+
+span {
+	margin-left: 20px;
+}
+
+.suggestion {
+	color: #9eabb1;
+}
+
+#suggestion {
+
+}
+
+.entry-amount {
+	width: 80px
+}
+
+/** create_budget **/
 #accordion {
   width: 60%;
   margin-top: 100px;
@@ -38,20 +57,16 @@ body {
   margin-left: 250px;
 }
 
-
-
-
-/** create_budget **/
 .select_budget, h5 {
   padding-top: 20px;
   font-size: 30px;
 }
 
 .form {
- text-align: center;
- font-family: Arial, Helvetica, sans-serif;
- font-weight: bold;
- background-color: rgb(86, 125, 139);
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	background-color: rgb(86, 125, 139);
   color: rgb(252, 249, 249);
   padding: 15px;
 	width: 600px;
@@ -79,15 +94,3 @@ body {
 	
 }
 
- 
-/** create_budget **/
-.create, h3{
-  text-align:center;
-  color: white;
-}
-.form-group {
-  padding-top: 10px;
-}
-.select_budget, h5 {
-  padding-top: 20px;
-}
