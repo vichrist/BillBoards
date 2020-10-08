@@ -1,28 +1,41 @@
 $(document).ready(() => {
   $("#accordion").accordion();
 
-  $(".save").on("click", event => {
-    event.preventDefault();
+  $(".save").on("click", function(e) {
+    e.preventDefault();
+    const type = $(this).prev();
+    console.log('type: ', type.val());
+    const amt = $(type).prev().prev();
+    console.log('amt: ', amt.val());
+    const name = $(amt).prev().prev().prev();
+    console.log('name: ', name.val());
+    let catgry = $(name).parent().parent().prev().text();
+    console.log('catgry: ', catgry);
+    
+    catgry = catgry.match(/[\S]+/);
+    console.log('catgry: ', catgry[0]);
+    
+    console.log("running save");
     // Wont submit the budget if we are missing an entry field
-    const postCategorySelect = $(".category");
-    const nameInput = $(".entry-name");
-    const amountInput = $(".entry-amount");
-    const typeInput = $(".entry-type");
-
     if (
-      !nameInput.val().trim() ||
-      !amountInput.val().trim() ||
-      !typeInput.val().trim()
+      !name.val().trim() ||
+      !amt.val().trim() ||
+      !type.val().trim()
     ) {
       return;
     }
+
+    bType = false;
+    if (type === "Budgeting") bType=true;
+
     // Constructing a budget object to hand to the database
     const budget = {
       business: false,
-      name: nameInput.val().trim(),
-      amount: amountInput.val().trim(),
-      type: typeInput.val().trim(),
-      category: postCategorySelect.val()
+      budgetExpense: bType,
+      name: name.val().trim(),
+      amount: parseFloat(amt.val().trim()),
+      category: catgry[0],
+      BudgetId: 1
     };
 
     console.log(budget);
@@ -36,7 +49,7 @@ $(document).ready(() => {
   // Submits a new post and brings user to blog page upon completion
   function submitBudget(budget) {
     $.post("/api/post/budget-entries", budget, () => {
-      window.location.href = "/budgets";
+    //   window.location.href = "/budgets";
     });
   }
 

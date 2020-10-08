@@ -19,7 +19,7 @@ function getBudgetEntriesCategory(req, category, cb) {
   });
 }
 
-function makeEstimate(req,cb) {
+function makeEstimate(req, cb) {
   // get budget for user
   db.Budgets.findOne({
     where: {
@@ -41,7 +41,7 @@ function makeEstimate(req,cb) {
       // add up incomes except One Time incomes
       let totalIncome = 0;
       incomes.forEach(inc => {
-        console.log('inc.name: ', inc.name);
+        console.log("inc.name: ", inc.name);
         // let inc = incObj.BudgetEntries;
         // console.log('inc: ', inc);
 
@@ -62,24 +62,24 @@ function makeEstimate(req,cb) {
         }
       });
 
-      console.log('totalIncome: ', totalIncome);
+      console.log("totalIncome: ", totalIncome);
 
       // create estimate objects for each category
       const estimate = categories.personalCategories;
       // let curTotal = 0;
       for (i = 0; i < estimate.length; i++) {
-        let c = estimate[i];
-        console.log('c: ', c);
+        const c = estimate[i];
+        console.log("c: ", c);
         if (i === 0) {
           c.suggested = totalIncome;
         } else {
           c.suggested = ((c.startPercent / 100) * totalIncome).toFixed(2);
-          console.log('c.suggested: ', c.suggested);
+          console.log("c.suggested: ", c.suggested);
         }
       }
 
       // console.log('curTotal: ', curTotal);
-      console.log('totalIncome: ', totalIncome);
+      console.log("totalIncome: ", totalIncome);
 
       // return estimate
       cb(estimate);
@@ -101,9 +101,9 @@ function calculateSum(req, cb) {
       c.expenseTotal = 0;
 
       for (x = 0; x < all[0].BudgetEntries.length; x++) {
-      for (x = 0; x < all[0].BudgetEntries.length; x++) {
         const b = all[0].BudgetEntries[x];
-        console.log("b: ", b);
+        // console.log("b: ", b);
+
         if (c.budgetExpense === false) {
           c.budgetTotal += b.amount;
         } else {
@@ -115,7 +115,6 @@ function calculateSum(req, cb) {
     cb(all);
   });
 }
-
 
 module.exports = {
   makeEstimate,
