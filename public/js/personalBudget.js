@@ -5,16 +5,16 @@ $(document).ready(() => {
  $(".save").on("click", function handleFormSubmit(event) {
   event.preventDefault();
   // Wont submit the budget if we are missing an entry field
-  var postCategorySelect = $("#category");
-  var nameInput = $("#entry-name");
-  var amountInput = $("entry-amount");
-  var typeInput = $("entry-type");
+  let postCategorySelect = $("#category");
+  let nameInput = $("#entry-name");
+  let amountInput = $("entry-amount");
+  let typeInput = $("entry-type");
 
   if (!nameInput.val().trim() || !amountInput.val().trim() || !typeInput.val().trim()) {
     return;
   }
   // Constructing a budget object to hand to the database
-  var budget = {
+  let budget = {
     name: nameInput.val().trim(),
     amount: amountInput.val().trim(),
     type: typeInput.val().trim(),

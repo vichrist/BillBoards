@@ -1,5 +1,5 @@
 const db = require("../models");
-const categories = require("../utils/categories.js");
+const categories = require("../utils/allCategories.js");
 const makeEstimate = require("../utils/estimates.js");
 
 module.exports = function(app) {
