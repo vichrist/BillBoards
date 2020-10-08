@@ -87,6 +87,27 @@ function makeEstimate(cb) {
   });
 }
 
+function calculateSum() {
+
+  const budget= categories.personalCategories;
+  for (i = 0; i < budget.length; i++) {
+    let c = budget[i];
+  if (budgetExpense === false) {
+    c.budgetItems = itemBudget;
+  } else {
+    c.budgetItems = ()
+  }
+ 
+  const expenses = categories.personalCategories;
+  for (i = 0; i < expenses.length; i++) {
+    let c = expenses[i];
+    if (budgetExpense === true) {
+      c.budgetItems = budgetExpense;
+    } else {
+      
+    }
+}}
+
 module.exports = {
   makeEstimate,
   getBudgetEntriesCategory
