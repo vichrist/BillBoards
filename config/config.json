@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "bram",
-    "password": "root",
+    "password": "",
+
     "database": "budget_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
