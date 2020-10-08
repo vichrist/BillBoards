@@ -1,21 +1,48 @@
+<div class="Header">
+  <div class="navgrid_7">
+    <a href="">Home</a> / <a href="">Logout</a>
+  </div>
+</div>
+<div class="wrapper">
+  <h1>
+    BILLBOARD
+  </h1>
+</div>
+
 <div id="accordion">
   {{#each category}}
-    <h3>
-      {{this.name}}
-      <input value="333.00">
-    </h3>
-      <div>
-        <p>
-          <ul>
-            {{#each this.subCategories}}
-              <li>
-                <lable>{{this}}</lable>
-                <input value = "10.00">
-
-              </li>
-            {{/each}}
-          </ul>
-        </p>
-      </div>
+  <h3>
+    <span class="catTitle">{{this.name}}</span>
+    <div class="row">
+      <div class="col-sm-2"><span>$40.00</span></div>
+      <div class="col-sm-2"><span>0%</span></div>
+      <div class="col-sm-2"><span class="suggestion">${{this.suggested}}</span></div>
+      <div class="col-sm-2"><span class="suggestion">[{{this.startPercent}}%]</span></div>
+      <div class="col-sm-4"><span class="suggestion">(Range: {{this.minPercent}}% to {{this.maxPercent}}%)</span></div>
+    </div>
+  </h3>
+  <div>
+    {{#each budget}}
+    <span>{{this.name}}</span>
+    <span>${{this.amount}}</span>
+    {{/each}}
+    <form>
+      <label>Add item: </label>
+      <input class="entry-name" list={{this.name}} name="subcategories">
+      <datalist id={{this.name}}>
+        {{#each this.subCategories}}
+        <option value="{{this}}"></option>
+        {{/each}}
+      </datalist>
+      <label>Amount: </label>
+      <input type="text" class="entry-amount">
+      <label>For: </label>
+      <select name="entry-type" class="entry-type">
+        <option value="Budgeting">Budgeting</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <button class="save">Save</button>
+    </form>
+  </div>
   {{/each}}
 </div>

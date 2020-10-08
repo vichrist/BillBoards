@@ -2,15 +2,16 @@
 
 $(document).ready(() => {
   // listen for submit on create budget form
-  $(".form").on("submit", e => {
+  $("#createButton").on("click", e => {
     e.preventDefault();
     const budgetType = $("#business")[0].checked; //check business radio button
     console.log('budgetType: ', budgetType);
     const name = $("#budgetName").val().trim();
+    console.log('name: ', name);
     const incomeAmt = $("#income").val().trim();
+    console.log('incomeAmt: ', incomeAmt);
     const incType = $("#incomeType").val().trim();
-
-    console.log('budgetType: ', budgetType);
+    console.log('incType: ', incType);
 
     //get user id for Budgets table
     $.get("/api/user_data").then(data => {
@@ -29,18 +30,15 @@ $(document).ready(() => {
           $.post("/api/post/budget-entries", {
             business: budgetType,
             budgetExpense: false,
-            amount: incomeAmt,
+            amount: parseFloat(incomeAmt),
             name: incType,
             category: "Income",
-            budgetId: ans.id
+            BudgetId: ans.id
           }).then(res => {
+            console.log('res: ', res);
             // route to budgets view page
-            $.get("/api/budget/estimate").then(est => {
-              console.log('est: ', est);
-
+            window.location.replace("/budgets");
               // eslint-disable-next-line no-empty-function
-              $.get("/viewbudgets");
-            });
           });
         });
       });
@@ -50,7 +48,7 @@ $(document).ready(() => {
   // listen for view button click and send to viewbudgets page
   $("#viewButton").on("click", e => {
     // route to budgets view page
-    $.get("/viewbudgets");
+    $.get("/budgets");
   });
 
 });
