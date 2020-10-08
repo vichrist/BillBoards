@@ -102,7 +102,7 @@ function calculateSum(req, cb) {
 
       for (x = 0; x < all[0].BudgetEntries.length; x++) {
         const b = all[0].BudgetEntries[x];
-        console.log("b: ", b);
+        // console.log("b: ", b);
 
         if (c.budgetExpense === false) {
           c.budgetTotal += b.amount;
