@@ -1,7 +1,7 @@
 const db = require("../models");
 const categories = require("./allCategories");
 
-function getBudgetEntriesCategory(category, cb) {
+function getBudgetEntriesCategory(req, category, cb) {
   db.Budgets.findOne({
     where: {
       UserId: req.user.id
@@ -19,7 +19,7 @@ function getBudgetEntriesCategory(category, cb) {
   });
 }
 
-function makeEstimate(cb) {
+function makeEstimate(req,cb) {
   // get budget for user
   db.Budgets.findOne({
     where: {

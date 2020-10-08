@@ -31,27 +31,27 @@ module.exports = function(app) {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
-    getBudgetEntriesCategory("Income",income => {
+    getBudgetEntriesCategory(req, "Income",income => {
       db.Budgets.findAll({
         where: {
           UserId: req.user.id
         },
         include: [db.BudgetEntries]
-      })
-    }).then(budgets => {
+      }).then(budgets => {
         // console.log('personalCategories: ', personalCategories);
         // console.log('budgets Name: ', budgets[0].budgetName);
         const entries = budgets[0].BudgetEntries;
-        const income = entries.splice(0, 1);
+
         // console.log('budgets entries: ', entries);
         // console.log('budgets entry amount: ', entries[0].amount);
-  
-        makeEstimate(est => {
-          res.render("index", { category: est, budget: entries });
-        })
+
+        makeEstimate(req, est => {
+          res.render("index", { category: est, budget: entries, income: income });
+        });
       });
     })
-    // res.sendFile(path.join(__dirname, "../public/budgets.html"));
+  });
+  // res.sendFile(path.join(__dirname, "../public/budgets.html"));
 
     app.get("/create-budget", isAuthenticated, (req, res) => {
       res.sendFile(path.join(__dirname, "../public/create-budget.html"));
