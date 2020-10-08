@@ -1,50 +1,49 @@
 <div class="Header">
-    <div class="navgrid_7">
-        <a href="">Home</a> / <a href="">Logout</a>
-    </div>
+  <div class="navgrid_7">
+    <a href="">Home</a> / <a href="">Logout</a>
+  </div>
 </div>
 <div class="wrapper">
-    <h1>
-        BILL BOARD
-    </h1>
+  <h1>
+    BILLBOARD
+  </h1>
 </div>
 
 <div id="accordion">
   {{#each category}}
-    <h3 class="category">
-      {{this.name}}
-      <span>$40.00</span>
-      <span>0%</span>
-      <span id="suggestion">
-        {{!-- <label class="suggestion">Suggestion:</label> --}}
-        <span class="suggestion">${{this.suggested}}</span>
-        <span class="suggestion">[{{this.startPercent}}%]</span>
-        <span class="suggestion">(Range: {{this.minPercent}}% to {{this.maxPercent}}%)</span>
-      </span>
-      {{!-- <input value="{{this.startPercent}}%" style="width: 50px;"> --}}
-    </h3>
-      <div>
-        {{#each budget}}
-          <span>{{this.name}}</span>
-          <span>${{this.amount}}</span>
+  <h3 class="category">
+    <span class="catTitle">{{this.name}}</span>
+    <div class="row">
+      <div class="col-sm-2"><span>$40.00</span></div>
+      <div class="col-sm-2"><span>0%</span></div>
+      <div class="col-sm-2"><span class="suggestion">${{this.suggested}}</span></div>
+      <div class="col-sm-2"><span class="suggestion">[{{this.startPercent}}%]</span></div>
+      <div class="col-sm-4"><span class="suggestion">(Range: {{this.minPercent}}% to {{this.maxPercent}}%)</span></div>
+    </div>
+  </h3>
+  <div>
+    {{#each budget}}
+    <span>{{this.name}}</span>
+    <span>${{this.amount}}</span>
+    {{/each}}
+    <form>
+      <label>Add item: </label>
+      <input class="entry-name" list={{this.name}} name="subcategories">
+      <datalist id={{this.name}}>
+        {{#each this.subCategories}}
+        <option value="{{this}}"></option>
         {{/each}}
-        <form >
-          <label>Add item: </label>
-          <input class="entry-name" list={{this.name}} name="subcategories">
-          <datalist id={{this.name}}>
-          {{#each this.subCategories}}
-              <option value="{{this}}" ></option>
-          {{/each}}
-          </datalist>
-          <label>Amount: </label>
-          <input type="text" class="entry-amount">
-          <label>For: </label>
-          <select name="entry-type" class="entry-type">
-            <option value="Budgeting">Budgeting</option>
-            <option value="Expense">Expense</option>
-          </select>
-          <button class="save">Save</button>
-        </form>
-      </div>
+      </datalist>
+      <label>Amount: </label>
+      <input type="text" class="entry-amount">
+      <label>For: </label>
+      <select name="entry-type" class="entry-type">
+        <option value="Budgeting">Budgeting</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <button class="save">Save</button>
+    </form>
+  </div>
   {{/each}}
 </div>
+
