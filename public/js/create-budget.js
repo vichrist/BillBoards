@@ -38,7 +38,6 @@ $(document).ready(() => {
             console.log('res: ', res);
             // route to budgets view page
             window.location.replace("/budgets");
-              // eslint-disable-next-line no-empty-function
           });
         });
       });
