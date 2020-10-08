@@ -11,6 +11,4 @@ module.exports = function(app) {
       res.json(estimate);
     });
   });
-
-  
 };

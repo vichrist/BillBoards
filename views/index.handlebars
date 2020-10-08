@@ -33,36 +33,51 @@ category[
 <div id="accordion">
   {{#each category}}
     <h3 class="category">
-      {{#if this.isIncome}}  
-        <span class="catTitle">{{this.name}}</span>
+      {{#if isIncome}}  
+        <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2"><span>{{this.totalIncome}}</span></div>
-          <div class="col-sm-2 expenceTotal"><span>{{this.totalExpences}}</span></div>
-          <div class="col-sm-2 budgetTotal"><span>{{this.totalBudget}}</span></div>
+          <div class="col-sm-2"><span>${{totalIncome}}</span></div>
+          <div class="col-sm-2 expence"><span>${{this.totalExpences}}</span></div>
+          <div class="col-sm-2 budget"><span>${{this.totalBudgets}}</span></div>
         </div>
       {{else}}
-        <span class="catTitle">{{this.name}}</span>
+        <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2 budgetTotal"><span>{{this.budgetTotal}}</span></div>
-          <div class="col-sm-2 expenceTotal"><span>{{this.expensesTotal}}</span></div>
-          <div class="col-sm-1 actualPercent"><span>{{this.budgetPercent}}</span></div>
-          <div class="col-sm-2"><span class="suggestion">${{this.suggestedAmt}}</span></div>
-          <div class="col-sm-1"><span class="suggestion">[{{this.startPercent}}%]</span></div>
-          <div class="col-sm-4"><span class="suggestion">(Range: {{this.minPercent}}% to {{this.maxPercent}}%)</span></div>
+          <div class="col-sm-2 budget"><span>${{budgetTotal}}</span></div>
+          <div class="col-sm-2 expense"><span>${{expensesTotal}}</span></div>
+          <div class="col-sm-1 actualPercent"><span>{{budgetPercent}}</span></div>
+          <div class="col-sm-2"><span class="suggestion">${{suggestedAmt}}</span></div>
+          <div class="col-sm-1"><span class="suggestion">[{{startPercent}}%]</span></div>
+          <div class="col-sm-4"><span class="suggestion">(Range: {{minPercent}}% to {{maxPercent}}%)</span></div>
         </div>
       {{/if}}
     </h3>
     <div>
-      {{#each budgets}}
-        <label>{{this.name}} $</label>
-        <input type="text" class="entry-amount" value="{{this.amount}}"></input>
-        <button class="delete">x</button>
-      {{/each}}
+      <div class="row">
+        <div class="col-sm-6 budgets-container {{class}}">
+          {{#each budgets}}
+            <div class="budget-entry entry">
+              <label class="budget-entry">{{name}}:  $</label>
+              <input type="text" class="entry-amount budget-entry noboarder" value="{{amount}}"></input>
+              <button class="delete">X</button>
+            </div>
+          {{/each}}
+        </div>
+        <div class="col-sm-6 expenses-container {{class}}">
+          {{#each expenses}}
+            <div class="expense-entry entry">
+              <label class="expense-entry">{{name}}:  $</label>
+              <input type="text" class="entry-amount expense-entry noboarder" value="{{amount}}"></input>
+              <button class="delete">X</button>
+            </div>
+          {{/each}}
+        </div>
+      </div>
       <form>
         <label>Add item: </label>
         <input class="entry-name" list={{this.name}} >
-        <datalist id={{this.name}}>
-          {{#each this.subCategories}}
+        <datalist id={{name}}>
+          {{#each subCategories}}
             <option value="{{this}}"></option>
           {{/each}}
         </datalist>
