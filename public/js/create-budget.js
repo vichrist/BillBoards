@@ -1,5 +1,3 @@
-// const { doc } = require("prettier");
-
 $(document).ready(() => {
   // listen for submit on create budget form
   $("#createButton").on("click", e => {
@@ -47,7 +45,7 @@ $(document).ready(() => {
   // listen for view button click and send to viewbudgets page
   $("#viewButton").on("click", e => {
     // route to budgets view page
-    $.get("/budgets");
+    window.location.replace("/budgets");
   });
 
 });

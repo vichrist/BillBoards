@@ -58,7 +58,7 @@ module.exports = function(app) {
     console.log(`Getting all budgets for user #${req.params.userId}`)
     db.Budgets.findAll({
       where: {
-        UserId: req.params.userId
+        UserId: req.user.id
       },
       include: [db.BudgetEntries]
     }).then(all => {
@@ -71,7 +71,7 @@ module.exports = function(app) {
     console.log(`getting the ${req.params.budgetName} budget`);
     db.Budgets.findOne({
       where: {
-        UserId: req.params.userId,
+        UserId: req.user.id,
         budgetName: req.params.budgetName
       }
     }).then(response => {

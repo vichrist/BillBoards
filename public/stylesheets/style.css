@@ -45,10 +45,12 @@ body {
 
 span {
 	margin-left: 20px;
+	color: black;
 }
 .catTitle{
 	font-weight: bold;
 	margin-left: -5px;
+	color: white;
 }
 .row{
 	display: flex;
@@ -56,8 +58,20 @@ span {
 	padding-top: 10px;
 }
 
+ui-accordian-content {
+	height: 400px
+}
+
+label {
+	color:black;
+}
+
+.col-md-4 {
+	max-width: 100% ;
+}
+
 .suggestion {
-	color: #9eabb1;
+	color: black
 }
 
 /* budgetView */
@@ -69,14 +83,26 @@ span {
 	width: 70%;
   margin: auto;
   margin-top: 30px;
-  height: 50%;
+  
+}
+
+.panel {
+	background-image: linear-gradient(to right,#155074, white);
+}
+
+.category {
+	background-image: linear-gradient(to right,#0d3d42b0 , white);  
+}
+
+.subcategory-row {
+	background-color: #F9F9F9;
 }
 
 .noboarder {
 	border: none;
 }
 
-.delete {
+.delete-element {
 	background-color: white;
 	border: none;
 	color: red;
@@ -99,8 +125,8 @@ span {
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	background-color: rgb(86, 125, 139);
-  	color: rgb(252, 249, 249);
-  	padding: 15px;
+	color: rgb(252, 249, 249);
+	padding: 15px;
 	width: 600px;
 	background:#2f3f55;
 	margin: 0px auto;
