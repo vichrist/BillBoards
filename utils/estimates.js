@@ -24,6 +24,7 @@ function convertName2Class(name) {
 }
 
 function makeEstimate(req, cb) {
+  console.log('req.user: ', req.user);
   // Creating this variable structure
   // estimate[
   //   {
