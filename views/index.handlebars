@@ -15,15 +15,15 @@
       {{#if isIncome}}  
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2"><span>${{totalIncome}}</span></div>
-          <div class="col-sm-2 expence"><span>${{this.totalExpences}}</span></div>
-          <div class="col-sm-2 budget"><span>${{this.totalBudgets}}</span></div>
+          <div class="col-sm-2"><span id="total-income">${{totalIncome}}</span></div>
+          <div class="col-sm-2 expence" id="total-expenses"><span>${{totalExpenses}}</span></div>
+          <div class="col-sm-2 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
         </div>
       {{else}}
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2 budget"><span>${{budgetTotal}}</span></div>
-          <div class="col-sm-2 expense"><span>${{expensesTotal}}</span></div>
+          <div class="col-sm-2 budget {{class}}"><span>${{budgetTotal}}</span></div>
+          <div class="col-sm-2 expense {{class}}"><span>${{expensesTotal}}</span></div>
           <div class="col-sm-1 actualPercent"><span>{{budgetPercent}}</span></div>
           <div class="col-sm-2"><span class="suggestion">${{suggestedAmt}}</span></div>
           <div class="col-sm-1"><span class="suggestion">[{{startPercent}}%]</span></div>

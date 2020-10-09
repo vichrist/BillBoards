@@ -151,10 +151,10 @@ module.exports = function(app) {
   });
 
   // delete a budget-entry
-  app.delete("/api/budget-entries", (req, res) => {
+  app.delete("/api/budget-entries/:id", (req, res) => {
     db.BudgetEntries.destroy({
       where: {
-        id: req.user.id
+        id: req.params.id
       }
     })
       .then(deleteBudgetEntry => {

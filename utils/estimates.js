@@ -24,14 +24,8 @@ function convertName2Class(name) {
 }
 
 function makeEstimate(req, cb) {
-  //Creating this variable structure
+  // Creating this variable structure
   // estimate[
-  //   income {
-  //     totalIncome,
-  //     allIncome,
-  //     totalBudget,
-  //     totalExpenses
-  //   },
   //   {
   //     name,
   //     minPercent,
@@ -43,6 +37,12 @@ function makeEstimate(req, cb) {
   //     subcategories [],
   //     budgets [],
   //     expenses [],
+  //     income {
+  //       totalIncome,
+  //       allIncome,
+  //       totalBudget,
+  //       totalExpenses
+  //     }
   //   }
   // ]
 
@@ -77,7 +77,7 @@ function makeEstimate(req, cb) {
         estimate[i].budgets = [];
         estimate[i].expenses = [];
         estimate[i].class = convertName2Class(estimate[i].name);
-        console.log('estimate[i].class: ', estimate[i].class);
+        console.log("estimate[i].class: ", estimate[i].class);
 
         //stuff specifically for income goes here
         if (estimate[i].name === "Income") {
@@ -96,16 +96,17 @@ function makeEstimate(req, cb) {
           console.log("estimate[i].suggestedAmt: ", estimate[i].suggestedAmt);
         }
 
+        estimate[i].budgetTotal = 0;
+        estimate[i].expensesTotal = 0;
+
         // loop through each budget entry
         all.forEach(entry => {
-          console.log("entry.name: ", entry.name);
-          console.log("entry.amount: ", entry.amount);
+          // console.log("entry.name: ", entry.name);
+          // console.log("entry.amount: ", entry.amount);
           const expenseObj = {};
           const budgetObj = {};
 
           if (entry.category === estimate[i].name) {
-            estimate[i].budgetTotal = 0;
-            estimate[i].expensesTotal = 0;
             estimate[i].isIncome = false;
 
             // convert other types to monthly amounts
@@ -132,29 +133,31 @@ function makeEstimate(req, cb) {
               estimate[i].budgets.push(budgetObj);
             } else {
               if (entry.budgetExpense) {
+                //expenses
                 estimate[i].expensesTotal += entry.amount;
                 expenseObj.name = entry.name;
                 expenseObj.amount = entry.amount;
                 estimate[i].expenses.push(expenseObj);
-                estimate[inc].totalIncome += entry.amount;
                 estimate[inc].totalExpenses += entry.amount;
               } else {
+                //budget items
                 estimate[i].budgetTotal += entry.amount;
                 budgetObj.name = entry.name;
                 budgetObj.amount = entry.amount;
                 estimate[i].budgets.push(budgetObj);
-                estimate[inc].totalExpenses += entry.amount;
                 estimate[inc].totalBudgets += entry.amount;
               }
             }
           }
         });
+        // console.log("estimate[i].expensesTotal: ", estimate[i].expensesTotal);
+        // console.log("estimate[i].budgetTotal: ", estimate[i].budgetTotal);
       }
 
-      console.log("estimate: ", estimate);
-      console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
-      console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
-      console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
+      // console.log("estimate: ", estimate);
+      // console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
+      // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
+      // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
 
       // return estimate
       cb(estimate);

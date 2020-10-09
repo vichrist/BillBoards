@@ -3,30 +3,17 @@ $(document).ready(() => {
 
   $(".delete-element").on("click", function(e) {
     e.preventDefault();
+    const $parent = $(this).parent();
+    const id = $parent.index();
+    console.log('id: ', id);
     
-    $(this).parent().empty();
-    // console.log("deleting")
-
-    // let check = $(this).prev();
-    // console.log('check: ', check);
-    // check = $(this).prev();
-    // console.log('check: ', check);
-    // check = $(this).prev().prev();
-    // console.log('check: ', check);
-    // check = $(this).prev().prev().prev();
-    // console.log('check: ', check);
-    // check = $(this).prev().prev().prev().prev();
-
-    
-
-
-    // $.ajax({
-    //   method: "DELETE",
-    //   url: "/api/budget-entries/"
-    // }).then(() => {
-    //   //remove the entry
-    //   $(this).parent().empty();
-    // });
+    $.ajax({
+      method: "DELETE",
+      url: "/api/budget-entries/" + id
+    }).then(res => {
+      console.log("deleted" + id);
+      $parent.empty();
+    });
   });
 
   $(".save").on("click", function(e) {
@@ -67,8 +54,10 @@ $(document).ready(() => {
 
     console.log(budget);
 
+    //clear out the values for the next input
     amt.val("");
     name.val("");
+
     // If we're updating a budget run updateBudget to update a budget
     // Otherwise run submitBudget to create a whole new budget
     addEntry2HTML(budget);
@@ -76,7 +65,7 @@ $(document).ready(() => {
   });
 
   function addEntry2HTML(budget) {
-    const bClass = budget.category.match(/\w+/)[0];
+    const bClass = category2Class(budget.category);
     if (budget.budgetExpense) {
       type = "expense";
       $use = $(`.expenses-container.${bClass}`);
@@ -84,21 +73,51 @@ $(document).ready(() => {
       type = "budget";
       $use = $(`.budgets-container.${bClass}`);
     }
-
-    const $html = $(`<div class="${type}-entry entry">
+    $.post("/api/post/budget-entries", budget, res => {
+      const $html = $(`<div id=${res.id} class="${type}-entry entry">
         <label class="${type}-entry">${budget.name}:  $</label>
         <input type="text" class="entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
-        <button class="delete">X</button>
+        <button class="delete-element">X</button>
       </div>`);
 
-    $use.prepend($html);
+      updateTotals(budget, () => {
+        $use.prepend($html);
+      });
+    });
+
+    // window.location.href = "/budgets";
   }
+
+  function category2Class(category) {
+    return category.match(/\w+/)[0];
+  }
+
+  function updateTotals(budget, cb) {
+    const bClass = category2Class(budget.category);
+    $.get("/api/budget/estimate", est => {
+      console.log('the est: ', est);
+
+      $("#total-income").text("$" + est[0].totalIncome);
+      $("#total-expenses").text("$" + est[0].totalExpenses);
+      $("#total-budget").text("$" + est[0].totalBudgets);
+      est.forEach(e => {
+        console.log('e.name: ', e.name);
+        console.log('budget.category: ', budget.category);
+        if (e.name === budget.category) {
+          console.log('e.budgetTotal: ', e.budgetTotal);
+          console.log('e.expensesTotal: ', e.expensesTotal);
+          $(`.budget.${bClass}`).text("$" + e.budgetTotal);
+          $(`.expense.${bClass}`).text("$" + e.expensesTotal);
+        }
+      });
+      cb();
+    });
+  }
+
 
   // Submits a new post and brings user to blog page upon completion
   function submitBudget(budget) {
-    $.post("/api/post/budget-entries", budget, () => {
-      //   window.location.href = "/budgets";
-    });
+    
   }
 
   //     $(document).on("click", ".amount", editTodo); //waits for click on item
