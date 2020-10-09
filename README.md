@@ -26,8 +26,6 @@ HTTP, CSS, JavaScript, Bootstrap, jQuery, ES6, RegEx, Node.js, express, express-
   
   * [License](#license)
   
-  * [Contributing](#contributing)
-  
   * [Tests](#tests)
   
   * [Questions](#questions)
@@ -48,16 +46,10 @@ Fork and clone the repo to your computer. Install dependencies in the teminal fr
 ## License
 The license for this project is: *MIT* ©  2020 Jason Tilley, Christal Vigil, Mason McGinley, Haley Lewis, and Raufun Patoary
   
-
-## Contributing
-
-
 ## Tests
 Hop on the live link, sign up, create a budget by filling in the requested info, and then start adding budget items to any of the categories.
 
 ## Questions
-If you have any questions you can email me at: 
-
 Also feel free to check out my GitHub page here: https://github.com/vichrist
   
 

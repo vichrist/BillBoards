@@ -115,10 +115,6 @@ $(document).ready(() => {
   }
 
 
-  // Submits a new post and brings user to blog page upon completion
-  function submitBudget(budget) {
-    
-  }
 
   //     $(document).on("click", ".amount", editTodo); //waits for click on item
   //     $(document).on("keyup", ".amount", finishEdit); //waits for enter to be pressed

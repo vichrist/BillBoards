@@ -62,11 +62,13 @@
         </datalist>
         <label>Amount: </label>
         <input type="text" data-name={{name}} class="entry-amount">
+        {{#unless isIncome}}
         <label>For: </label>
         <select name="entry-type" data-name={{name}} class="entry-type">
           <option value="Budgeting">Budgeting</option>
           <option value="Expense">Expense</option>
         </select>
+        {{/unless}}
         <button data-name={{name}} class="save">Save</button>
       </form>
 
