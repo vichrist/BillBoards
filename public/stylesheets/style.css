@@ -45,10 +45,12 @@ body {
 
 span {
 	margin-left: 20px;
+	color: black;
 }
 .catTitle{
 	font-weight: bold;
 	margin-left: -5px;
+	color: black;
 }
 .row{
 	display: flex;
@@ -56,8 +58,16 @@ span {
 	padding-top: 10px;
 }
 
+label {
+	color:black;
+}
+
+.col-md-4 {
+	max-width: 100% ;
+}
+
 .suggestion {
-	color: #9eabb1;
+	color: black
 }
 
 /* budgetView */
@@ -71,6 +81,19 @@ span {
   margin-top: 30px;
   height: 50%;
 }
+
+.panel {
+	background-image: linear-gradient(to right,#155074, white);
+}
+
+.category {
+	background-image: linear-gradient(to right,#0d3d42b0 , white);  
+}
+
+.subcategory-row {
+	background-color: #F9F9F9;
+}
+
 
 .noboarder {
 	border: none;

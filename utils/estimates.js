@@ -19,7 +19,33 @@ function getBudgetEntriesCategory(req, category, cb) {
   });
 }
 
+function convertName2Class(name) {
+  return name.match(/\w+/)[0];
+}
+
 function makeEstimate(req, cb) {
+  //Creating this variable structure
+  // estimate[
+  //   income {
+  //     totalIncome,
+  //     allIncome,
+  //     totalBudget,
+  //     totalExpenses
+  //   },
+  //   {
+  //     name,
+  //     minPercent,
+  //     maxPercent,
+  //     startPercent,
+  //     suggestedAmt,
+  //     budgetsTotal,
+  //     expensesTotal,
+  //     subcategories [],
+  //     budgets [],
+  //     expenses [],
+  //   }
+  // ]
+
   // get budget for user
   db.Budgets.findOne({
     where: {
@@ -50,7 +76,7 @@ function makeEstimate(req, cb) {
         //initialize budgets and expenses arrays for entries
         estimate[i].budgets = [];
         estimate[i].expenses = [];
-        estimate[i].class = estimate[i].name.split("").join("");
+        estimate[i].class = convertName2Class(estimate[i].name);
         console.log('estimate[i].class: ', estimate[i].class);
 
         //stuff specifically for income goes here
@@ -138,5 +164,6 @@ function makeEstimate(req, cb) {
 
 module.exports = {
   makeEstimate,
-  getBudgetEntriesCategory
+  getBudgetEntriesCategory,
+  convertName2Class
 };

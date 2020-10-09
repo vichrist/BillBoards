@@ -1,27 +1,43 @@
-
-
 $(document).ready(() => {
   $("#accordion").accordion();
 
-  $(".delete").on("click", function(e) {
+  $(".delete-element").on("click", function(e) {
     e.preventDefault();
     
-    
-    
-    
-    //remove the entry
     $(this).parent().empty();
+    // console.log("deleting")
 
-    console.log('entry: ', entry);
+    // let check = $(this).prev();
+    // console.log('check: ', check);
+    // check = $(this).prev();
+    // console.log('check: ', check);
+    // check = $(this).prev().prev();
+    // console.log('check: ', check);
+    // check = $(this).prev().prev().prev();
+    // console.log('check: ', check);
+    // check = $(this).prev().prev().prev().prev();
 
+    
+
+
+    // $.ajax({
+    //   method: "DELETE",
+    //   url: "/api/budget-entries/"
+    // }).then(() => {
+    //   //remove the entry
+    //   $(this).parent().empty();
+    // });
   });
 
   $(".save").on("click", function(e) {
     e.preventDefault();
     const elType = $(this).prev();
+    // console.log('elType: ', elType);
     const amt = $(elType).prev().prev();
-    const name = $(amt).prev().prev().prev();
+    // console.log('amt: ', amt);
+    const name = $(amt).prev().prev().prev()
     let catgry = $(name).parent().parent().prev().text();
+    // console.log('catgry: ', catgry);
 
     catgry = catgry.match(/[\S]+/)[0];
     console.log("elType: ", elType.val());
@@ -35,7 +51,7 @@ $(document).ready(() => {
       return;
     }
 
-    let bType = elType.val().trim() === "Expense";
+    const bType = elType.val().trim() === "Expense";
 
     console.log("bType: ", bType);
 
@@ -51,6 +67,8 @@ $(document).ready(() => {
 
     console.log(budget);
 
+    amt.val("");
+    name.val("");
     // If we're updating a budget run updateBudget to update a budget
     // Otherwise run submitBudget to create a whole new budget
     addEntry2HTML(budget);
@@ -58,20 +76,21 @@ $(document).ready(() => {
   });
 
   function addEntry2HTML(budget) {
+    const bClass = budget.category.match(/\w+/)[0];
     if (budget.budgetExpense) {
       type = "expense";
-      $use = $(`.expenses-container.${budget.category.split("").join("")}`);
+      $use = $(`.expenses-container.${bClass}`);
     } else {
       type = "budget";
-      $use = $(`.budgets-container.${budget.category.split("").join("")}`);
+      $use = $(`.budgets-container.${bClass}`);
     }
 
     const $html = $(`<div class="${type}-entry entry">
         <label class="${type}-entry">${budget.name}:  $</label>
         <input type="text" class="entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
         <button class="delete">X</button>
-      </div>`)
-    
+      </div>`);
+
     $use.prepend($html);
   }
 

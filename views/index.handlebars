@@ -8,28 +8,7 @@
     BILL BOARD
   </h1>
 </div>
-{{!-- var structure
-category[
-  income {
-    totalIncome,
-    allIncome,
-    totalBudget,
-    totalExpenses
-  },
-  {
-    name,
-    minPercent,
-    maxPercent,
-    startPercent,
-    suggestedAmt,
-    budgetsTotal,
-    expensesTotal,
-    subcategories [],
-    budgets [],
-    expenses [],
-  }
-]
---}}
+
 <div id="accordion">
   {{#each category}}
     <h3 class="category">
@@ -59,7 +38,7 @@ category[
             <div class="budget-entry entry">
               <label class="budget-entry">{{name}}:  $</label>
               <input type="text" class="entry-amount budget-entry noboarder" value="{{amount}}"></input>
-              <button class="delete">X</button>
+              <button class="delete-element">X</button>
             </div>
           {{/each}}
         </div>
@@ -68,28 +47,29 @@ category[
             <div class="expense-entry entry">
               <label class="expense-entry">{{name}}:  $</label>
               <input type="text" class="entry-amount expense-entry noboarder" value="{{amount}}"></input>
-              <button class="delete">X</button>
+              <button class="delete-element">X</button>
             </div>
           {{/each}}
         </div>
       </div>
       <form>
         <label>Add item: </label>
-        <input class="entry-name" list={{this.name}} >
+        <input class="entry-name" list={{name}} >
         <datalist id={{name}}>
           {{#each subCategories}}
             <option value="{{this}}"></option>
           {{/each}}
         </datalist>
         <label>Amount: </label>
-        <input type="text" class="entry-amount">
+        <input type="text" data-name={{name}} class="entry-amount">
         <label>For: </label>
-        <select name="entry-type" class="entry-type">
+        <select name="entry-type" data-name={{name}} class="entry-type">
           <option value="Budgeting">Budgeting</option>
           <option value="Expense">Expense</option>
         </select>
-        <button class="save">Save</button>
+        <button data-name={{name}} class="save">Save</button>
       </form>
+
     </div>
   {{/each}}
 </div>
