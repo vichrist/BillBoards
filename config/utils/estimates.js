@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../models");
 const categories = require("./allCategories");
 
 function getBudgetEntriesCategory(req, category, cb) {
@@ -19,12 +19,12 @@ function getBudgetEntriesCategory(req, category, cb) {
   });
 }
 
-function convertName2Class(name) {
-  return name.match(/\w+/)[0];
+function category2Class(category) {
+  return category.match(/\w+/)[0];
 }
 
-function makeEstimate(req, cb) {
-  console.log('req.user: ', req.user);
+function makeEstimate(userId, cb) {
+  
   // Creating this variable structure
   // estimate[
   //   {
@@ -46,11 +46,10 @@ function makeEstimate(req, cb) {
   //     }
   //   }
   // ]
-
   // get budget for user
   db.Budgets.findOne({
     where: {
-      UserId: req.user.id
+      UserId: userId
     }
   }).then(budget => {
     // get Income budget entries for budget
@@ -77,15 +76,15 @@ function makeEstimate(req, cb) {
         //initialize budgets and expenses arrays for entries
         estimate[i].budgets = [];
         estimate[i].expenses = [];
-        estimate[i].class = convertName2Class(estimate[i].name);
-        console.log("estimate[i].class: ", estimate[i].class);
+        estimate[i].class = category2Class(estimate[i].name);
+        // console.log("estimate[i].class: ", estimate[i].class);
 
         //stuff specifically for income goes here
         if (estimate[i].name === "Income") {
           //add income specific values
           estimate[inc].isIncome = true;
           estimate[inc].totalIncome = 0.0;
-          console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
+          // console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
           estimate[inc].allIncome = 0.0;
           estimate[inc].totalBudgets = 0.0; //all budget entries total for all categories
           estimate[inc].totalExpenses = 0.0; //all expense entries total for all categories
@@ -94,7 +93,7 @@ function makeEstimate(req, cb) {
             (estimate[i].startPercent / 100) *
             estimate[inc].totalIncome
           ).toFixed(2);
-          console.log("estimate[i].suggestedAmt: ", estimate[i].suggestedAmt);
+          // console.log("estimate[i].suggestedAmt: ", estimate[i].suggestedAmt);
         }
 
         estimate[i].budgetTotal = 0;
@@ -102,17 +101,21 @@ function makeEstimate(req, cb) {
 
         // loop through each budget entry
         all.forEach(entry => {
-          // console.log("entry.name: ", entry.name);
           // console.log("entry.amount: ", entry.amount);
+          //save id for use on HTML entry items
+          
           const expenseObj = {};
           const budgetObj = {};
 
           if (entry.category === estimate[i].name) {
             estimate[i].isIncome = false;
-
-            // convert other types to monthly amounts
+            console.log("entry.name: ", entry.name);
+            console.log("entry.id: ", entry.id);
+  
+            // update totals for Income
             if (estimate[i].name === "Income") {
               estimate[i].isIncome = true;
+              // convert other types to monthly amounts
               if (estimate[inc].name !== "One Time") {
                 switch (entry.name) {
                   case "Daily":
@@ -131,22 +134,30 @@ function makeEstimate(req, cb) {
               }
               budgetObj.name = entry.name;
               budgetObj.amount = entry.amount;
+              budgetObj.id = entry.id;
               estimate[i].budgets.push(budgetObj);
             } else {
+              // update totals for all other entries
               if (entry.budgetExpense) {
-                //expenses
+                //update expense totals
                 estimate[i].expensesTotal += entry.amount;
+                estimate[inc].totalExpenses += entry.amount;
+
+                //make a expence item
                 expenseObj.name = entry.name;
                 expenseObj.amount = entry.amount;
+                expenseObj.id = entry.id;
                 estimate[i].expenses.push(expenseObj);
-                estimate[inc].totalExpenses += entry.amount;
               } else {
-                //budget items
+                //update budget totals
                 estimate[i].budgetTotal += entry.amount;
+                estimate[inc].totalBudgets += entry.amount;
+
+                //make budget entry item
                 budgetObj.name = entry.name;
                 budgetObj.amount = entry.amount;
+                budgetObj.id = entry.id;
                 estimate[i].budgets.push(budgetObj);
-                estimate[inc].totalBudgets += entry.amount;
               }
             }
           }
@@ -155,7 +166,7 @@ function makeEstimate(req, cb) {
         // console.log("estimate[i].budgetTotal: ", estimate[i].budgetTotal);
       }
 
-      // console.log("estimate: ", estimate);
+      console.log("estimate: ", estimate);
       // console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
       // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
       // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
@@ -168,6 +179,5 @@ function makeEstimate(req, cb) {
 
 module.exports = {
   makeEstimate,
-  getBudgetEntriesCategory,
-  convertName2Class
+  getBudgetEntriesCategory
 };

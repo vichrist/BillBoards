@@ -6,9 +6,9 @@
 A user can log in and create a budget easily. It has many categories and sub categories for you to make the budget making process a breeze.For every category it has at a glance your budget total, expenses total, and suggeted percentages and amounts based on your total income.
 
 ## Links
-Deployed link: I don't know yet
+Deployed link: https://sleepy-eyrie-55325.herokuapp.com/
 
-Repo link: https://github.com/vichrist/Project2
+Repo link: https://github.com/vichrist/BillBoards
 
 ## Authors
 Jason Tilley, Christal Vigil, Mason McGinley, Haley Lewis, and Raufun Patoary

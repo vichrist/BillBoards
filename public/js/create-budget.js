@@ -11,6 +11,10 @@ $(document).ready(() => {
     const incType = $("#incomeType").val().trim();
     console.log('incType: ', incType);
 
+    if (name ===  "" || incomeAmt === "" || incType === "") {
+      return;
+    }
+
     //get user id for Budgets table
     $.get("/api/user_data").then(data => {
       // post a budget (personal or business as selected)

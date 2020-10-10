@@ -15,9 +15,14 @@
       {{#if isIncome}}  
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2"><span id="total-income">${{totalIncome}}</span></div>
-          <div class="col-sm-2 expence" id="total-expenses"><span>${{totalExpenses}}</span></div>
-          <div class="col-sm-2 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
+          <div class="col-sm-4"><span >Total Income</span></div>
+          <div class="col-sm-4 expense" ><span>Total Expenses</span></div>
+          <div class="col-sm-4 budget" ><span>Total Budgeted</span></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4"><span id="total-income">${{totalIncome}}</span></div>
+          <div class="col-sm-4 expense" id="total-expenses expense"><span>${{totalExpenses}}</span></div>
+          <div class="col-sm-4 budget" id="total-budget budget"><span>${{totalBudgets}}</span></div>
         </div>
       {{else}}
         <span class="catTitle">{{name}}</span>
@@ -32,11 +37,11 @@
       {{/if}}
     </h3>
     <div>
-      <div class="row">
+      <div class="row entries">
         <div class="col-sm-6 budgets-container {{class}}">
           {{#each budgets}}
-            <div class="budget-entry entry">
-              <label class="budget-entry">{{name}}:  $</label>
+            <div data-id={{id}} class="budget-entry entry">
+              <input type="text" class="entry-name noboarder" value="{{name}}">: $</input>
               <input type="text" class="entry-amount budget-entry noboarder" value="{{amount}}"></input>
               <button class="delete-element">X</button>
             </div>
@@ -44,8 +49,8 @@
         </div>
         <div class="col-sm-6 expenses-container {{class}}">
           {{#each expenses}}
-            <div class="expense-entry entry">
-              <label class="expense-entry">{{name}}:  $</label>
+            <div data-id={{id}} class="expense-entry entry">
+              <input type="text" class="entry-name noboarder" value="{{name}}">: $</input>
               <input type="text" class="entry-amount expense-entry noboarder" value="{{amount}}"></input>
               <button class="delete-element">X</button>
             </div>

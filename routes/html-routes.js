@@ -4,7 +4,7 @@ const path = require("path");
 const {
   makeEstimate,
   getBudgetEntriesCategory
-} = require("../utils/estimates.js");
+} = require("../config/utils/estimates.js");
 const db = require("../models");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -34,7 +34,7 @@ module.exports = function(app) {
     // res.sendFile(path.join(__dirname, "../public/create-budget.html"));
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
-    makeEstimate(req, est => {
+    makeEstimate(req.user.id, est => {
       res.render("index", {
         category: est,
         income: est.income

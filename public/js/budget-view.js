@@ -1,21 +1,27 @@
 $(document).ready(() => {
+  // add the accordion affect to the budget table
   $("#accordion").accordion();
 
-  $(".delete-element").on("click", function(e) {
+  //delete a budget or expense item
+  $(".entries").on("click", ".delete-element", function(e) {
     e.preventDefault();
+    console.log("deleting was clicked");
     const $parent = $(this).parent();
-    const id = $parent.index();
+    console.log('$parent: ', $parent);
+    const id = $parent.data("id");
     console.log('id: ', id);
-    
+
     $.ajax({
       method: "DELETE",
       url: "/api/budget-entries/" + id
     }).then(res => {
       console.log("deleted" + id);
       $parent.empty();
+      updateTotals();
     });
   });
 
+  //add a budget or expense item
   $(".save").on("click", function(e) {
     e.preventDefault();
     const elType = $(this).prev();
@@ -61,11 +67,10 @@ $(document).ready(() => {
     // If we're updating a budget run updateBudget to update a budget
     // Otherwise run submitBudget to create a whole new budget
     addEntry2HTML(budget);
-    submitBudget(budget);
   });
 
   function addEntry2HTML(budget) {
-    const bClass = category2Class(budget.category);
+    const bClass = budget.category.match(/\w+/)[0];
     if (budget.budgetExpense) {
       type = "expense";
       $use = $(`.expenses-container.${bClass}`);
@@ -74,47 +79,43 @@ $(document).ready(() => {
       $use = $(`.budgets-container.${bClass}`);
     }
     $.post("/api/post/budget-entries", budget, res => {
+      console.log('res: ', res);
+
       const $html = $(`<div id=${res.id} class="${type}-entry entry">
         <label class="${type}-entry">${budget.name}:  $</label>
         <input type="text" class="entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
         <button class="delete-element">X</button>
       </div>`);
 
-      updateTotals(budget, () => {
-        $use.prepend($html);
-      });
+      $use.prepend($html);
+      updateTotals();
     });
-
-    // window.location.href = "/budgets";
   }
 
-  function category2Class(category) {
-    return category.match(/\w+/)[0];
-  }
-
-  function updateTotals(budget, cb) {
-    const bClass = category2Class(budget.category);
+  function updateTotals() {
     $.get("/api/budget/estimate", est => {
-      console.log('the est: ', est);
-
+      console.log("the est: ", est);
+  
+      // update the grand totals on the income
       $("#total-income").text("$" + est[0].totalIncome);
       $("#total-expenses").text("$" + est[0].totalExpenses);
       $("#total-budget").text("$" + est[0].totalBudgets);
+  
+      // loop through each category in estimate and update the elements on the HTML
       est.forEach(e => {
-        console.log('e.name: ', e.name);
-        console.log('budget.category: ', budget.category);
-        if (e.name === budget.category) {
-          console.log('e.budgetTotal: ', e.budgetTotal);
-          console.log('e.expensesTotal: ', e.expensesTotal);
-          $(`.budget.${bClass}`).text("$" + e.budgetTotal);
-          $(`.expense.${bClass}`).text("$" + e.expensesTotal);
-        }
+        console.log("e.name: ", e.name);
+  
+        //get the class name for finding the budget list and expense list
+        const bClass = e.class;
+  
+        // update the budget and expense totals for the category
+        console.log("e.budgetTotal: ", e.budgetTotal);
+        console.log("e.expensesTotal: ", e.expensesTotal);
+        $(`.budget.${bClass}`).text("$" + e.budgetTotal);
+        $(`.expense.${bClass}`).text("$" + e.expensesTotal);
       });
-      cb();
     });
   }
-
-
 
   //     $(document).on("click", ".amount", editTodo); //waits for click on item
   //     $(document).on("keyup", ".amount", finishEdit); //waits for enter to be pressed
