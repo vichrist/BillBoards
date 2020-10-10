@@ -43,9 +43,13 @@ body {
 	color: white;
   }
 
+.expense {
+	color: #ad0000;
+}
+	
 span {
 	margin-left: 20px;
-	color: black;
+	/* color: black; */
 }
 .catTitle{
 	font-weight: bold;
@@ -76,7 +80,7 @@ label {
 
 /* budgetView */
 .entry-amount {
-	width: 80px
+	width: 70px
 }
 
 #accordion {
@@ -84,6 +88,11 @@ label {
   margin: auto;
   margin-top: 30px;
   
+}
+
+.col-sm-4, 
+span {
+	text-align: center;
 }
 
 .panel {
@@ -105,10 +114,6 @@ label {
 .delete-element {
 	background-color: white;
 	border: none;
-	color: red;
-}
-
-.expense-entry {
 	color: red;
 }
 
@@ -152,3 +157,7 @@ label {
 	
 }
 
+.entry-name {
+	text-align: right;
+	width: 120px;
+}

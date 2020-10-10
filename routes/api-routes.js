@@ -126,6 +126,8 @@ module.exports = function(app) {
       BudgetId: req.body.BudgetId
     })
       .then(postBudgetEntries => {
+        console.log('postBudgetEntries: ', postBudgetEntries);
+        postBudgetEntries.userId = req.user.id;
         res.json(postBudgetEntries);
       })
       .catch(err => {
