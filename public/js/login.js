@@ -45,7 +45,8 @@ $(document).ready(() => {
         // If there's an error, log the error
       })
       .catch(err => {
-        console.log(err);
+        $("#alert .msg").text(`The email or password doesn't match any accounts. If you need to create an account click the link below to go to the sign up page.`);
+        $("#alert").fadeIn(500);
       });
   }
 });

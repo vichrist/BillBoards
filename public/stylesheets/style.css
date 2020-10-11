@@ -54,6 +54,11 @@ input[type=text].expense,
 	color: #ff5454;
 }
 	
+#budget-expenses,
+#income-budget {
+	color: #a59b26;
+}
+
 .budget-total {
 	color: white;
 }
@@ -106,7 +111,7 @@ label {
 }
 
 .title {
-	text-align: center;
+	text-align: justify;
 	width: 100%;
 	color: black
 }

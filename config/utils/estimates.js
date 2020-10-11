@@ -201,6 +201,14 @@ function makeEstimate(userId, cb) {
       // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
       // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
 
+      // get difference between income and total budget
+      estimate[inc].income2Budget =
+        estimate[inc].totalIncome - estimate[inc].totalBudgets;
+
+      // calc difference between budget and expenses totals
+      estimate[inc].budget2Expense =
+        estimate[inc].totalBudgets - estimate[inc].totalExpenses;
+
       // return estimate
       estimate.map(fixed);
       cb(estimate);

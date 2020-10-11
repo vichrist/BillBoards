@@ -1,6 +1,6 @@
 <div class="Header">
   <div class="navgrid_7">
-    <a href="/create-budget">+ Budget</a> / <a href="/logout">Logout</a>
+    <a href="/logout">Logout</a>
   </div>
 </div>
 <div class="wrapper">
@@ -16,17 +16,21 @@
         <div style="text-align: center;  width: 100%; font-size: x-large;">{{budgetName}}</div>
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-4 title"><span >Total Income</span></div>
-          <div class="col-sm-4 title" ><span>Total Budgeted</span></div>
-          <div class="col-sm-4 title" ><span>Total Expenses</span></div>
+          <div class="col-sm-2 title"><span >Total Income</span></div>
+          <div class="col-sm-2 title" ><span>Income - Budget</span></div>
+          <div class="col-sm-2 title" ><span>Total Budgeted</span></div>
+          <div class="col-sm-2 title" ><span>Budget - Expenses</span></div>
+          <div class="col-sm-2 title" ><span>Total Expenses</span></div>
         </div>
         <div class="row">
-          <div class="col-sm-4"><span id="total-income">${{totalIncome}}</span></div>
-          <div class="col-sm-4 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
+          <div class="col-sm-2"><span id="total-income">${{totalIncome}}</span></div>
+          <div class="col-sm-2"><span id="income-budget">${{income2Budget}}</span></div>
+          <div class="col-sm-2 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
+          <div class="col-sm-2"><span id="budget-expenses">${{budget2Expense}}</span></div>
           {{#if isOverBudget}}
-            <div class="col-sm-4 over-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
+            <div class="col-sm-2 over-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
           {{else}}
-            <div class="col-sm-4 under-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
+            <div class="col-sm-2 under-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
           {{/if}}
         </div>
       {{else}}
