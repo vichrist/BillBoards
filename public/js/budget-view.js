@@ -1,3 +1,6 @@
+let oldName = ""
+let oldAmount = ""
+
 $(document).ready(() => {
   // add the accordion affect to the budget table
   $("#accordion").accordion();
@@ -30,13 +33,24 @@ $(document).ready(() => {
     const $name = $parent.find(".entry-title");
     const name = $name.val().trim();
     const $amt = $parent.find(".entry-amount");
-    const amt = $amt.val().trim();
-    const elType = $parent.find(".entry-type").val().trim();
+    let amt = $amt.val().trim();
+    let elType = $parent.find(".entry-type").val();
+    if (elType === undefined) {
+      elType = "Budgeting";
+    }
+    
     const catgry = $parent.find("datalist").attr("id");
+    console.log('name: ', name);
+    console.log('amt: ', amt);
+    console.log('elType: ', elType);
     
     // Wont submit the budget if we are missing an entry field
     if (!name || !amt || !elType) {
       return;
+    }
+
+    if (amt.match(/[+-/*]/)) {
+      amt = eval(amt);
     }
 
     // Constructing a budget object to hand to the database
@@ -74,7 +88,7 @@ $(document).ready(() => {
 
       const $html = $(`<div data-id=${res.id} class="${type}-entry entry">
         <input type="text" class="${type} entry-name noboarder" value="${budget.name}">: $</input>
-        <input type="text" class="${type} entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
+        <input type="text" class="${type} entry-amount ${type}-entry noboarder" value="${budget.amount.toFixed(2)}"></input>
         <button class="delete-element">x</button>
       </div>`);
 
@@ -89,16 +103,16 @@ $(document).ready(() => {
       
       console.log("est[0].totalIncome: ", est[0].totalIncome);
       console.log("est[0].totalBudgets: ", est[0].totalBudgets);
-      console.log("est[0].totalExpenses: ", est[0].totalExpenses);
+      console.log("est[0].totalExpenses: ", parseFloat(est[0].totalExpenses).toFixed(2));
 
       // update the grand totals on the income
       $("#total-income").text("$" + est[0].totalIncome);
       $("#total-expenses").text("$" + est[0].totalExpenses);
       $("#total-budget").text("$" + est[0].totalBudgets);
       if (est[0].totalExpenses > est[0].totalBudgets) {
-        $("#total-expenses").attr("class", "col-sm-4 over-expense");
+        $("#total-expenses").attr("class", "col-sm-2 over-expense");
       } else {
-        $("#total-expenses").attr("class", "col-sm-4 under-expense");
+        $("#total-expenses").attr("class", "col-sm-2 under-expense");
       }
   
       // loop through each category in estimate and update the elements on the HTML
@@ -109,14 +123,14 @@ $(document).ready(() => {
         const bClass = e.class;
   
         // update the budget and expense totals for the category
-        // console.log("e.budgetTotal: ", e.budgetTotal);
-        // console.log("e.expensesTotal: ", e.expensesTotal);
+        console.log("e.budgetTotal: ", e.budgetTotal);
+        console.log("e.expensesTotal: ", e.expensesTotal);
         $(`.budget.${bClass}`).text("$" + e.budgetTotal);
         $(`.expense.${bClass}`).text("$" + e.expensesTotal);
         if (e.isOverBudget) {
-          $(`.expense-total.${bClass}`).attr(`class`, `expense-total ${bClass} over-expense`);
+          $(`.expense-total.${bClass}`).attr(`class`, `expense-total expense ${bClass} over-expense`);
         } else {
-          $(`.expense-total.${bClass}`).attr("class", `expense-total ${bClass} under-expense`);
+          $(`.expense-total.${bClass}`).attr("class", `expense-total expense ${bClass} under-expense`);
         }
 
       });
@@ -124,28 +138,36 @@ $(document).ready(() => {
   }
 
   // listeners for updating an entry amount
+  $(document).on("click", ".entry", startEdit); //waits for enter to be pressed
   $(document).on("keyup", ".entry", finishEdit); //waits for enter to be pressed
+  $(document).on("blur", ".entry", cancelEdit); //waits for enter to be pressed
 
   //   // This function starts updating a todo in the database if a user hits the "Enter Key"
   // While in edit mode
   function finishEdit(event) {
-    const name = $(this).find(".entry-name").val().trim();
-    const amt = $(this).find(".entry-amount").val().trim();
-    const id = $(this).data("id")
-
-    const entry = {
-      name: name,
-      amount: amt,
-      id: id
-    }
-    
     if (event.which === 13) {
+      const name = $(this).find(".entry-name").val().trim();
+      let amt = $(this).find(".entry-amount").val().trim();
+      const id = $(this).data("id")
+
+      amt = eval(amt).toFixed(2);
+      $(this).find(".entry-amount").val(amt); // store evaluated code
+      $(this).find(".entry-name").val(name);
+      oldName = "";
+      oldAmount = "";
+
+      const entry = {
+        name: name,
+        amount: amt,
+        id: id
+      }
+    
       // console.log('id: ', id);
       // console.log('name: ', name);
       // console.log('amt: ', amt);
       $(this).find(".entry-name").blur();
       $(this).find(".entry-amount").blur();
-      
+
 
       $.ajax({
         method: "PUT",
@@ -156,5 +178,23 @@ $(document).ready(() => {
       });
     }
   };
+
+  function startEdit(event) {
+    // save original values 
+    if (oldAmount === "" && oldName === "") {
+      oldAmount = $(this).find(".entry-amount").val().trim();
+      oldName = $(this).find(".entry-name").val().trim();
+    }
+  }
+
+  function cancelEdit(event) {
+    //restore original values
+    if (oldAmount !== "" && oldName !== "") {
+      $(this).find(".entry-amount").val(oldAmount);
+      $(this).find(".entry-name").val(oldName);
+      oldName = "";
+      oldAmount = "";
+    }
+  }
 
 });

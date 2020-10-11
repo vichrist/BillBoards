@@ -1,6 +1,6 @@
 <div class="Header">
   <div class="navgrid_7">
-    {{!-- <a href="">Home</a> / <a href="">Logout</a> --}}
+    <a href="/logout">Logout</a>
   </div>
 </div>
 <div class="wrapper">
@@ -13,29 +13,34 @@
   {{#each category}}
     <h3 class="category">
       {{#if isIncome}}  
+        <div class="title" id="budget-name" style="text-align: center;  width: 100%; font-size: x-large;">{{budgetName}}</div>
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-4 title"><span >Total Income</span></div>
-          <div class="col-sm-4 title" ><span>Total Budgeted</span></div>
-          <div class="col-sm-4 title" ><span>Total Expenses</span></div>
+          <div class="col-sm-2 title"><span >Total Income</span></div>
+          <div class="col-sm-2 title" ><span>Income - Budget</span></div>
+          <div class="col-sm-2 title" ><span>Total Budgeted</span></div>
+          <div class="col-sm-2 title" ><span>Budget - Expenses</span></div>
+          <div class="col-sm-2 title" ><span>Total Expenses</span></div>
         </div>
         <div class="row">
-          <div class="col-sm-4"><span id="total-income">${{totalIncome}}</span></div>
-          <div class="col-sm-4 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
+          <div class="col-sm-2"><span id="total-income">${{totalIncome}}</span></div>
+          <div class="col-sm-2"><span id="income-budget">${{income2Budget}}</span></div>
+          <div class="col-sm-2 budget" id="total-budget"><span>${{totalBudgets}}</span></div>
+          <div class="col-sm-2"><span id="budget-expenses">${{budget2Expense}}</span></div>
           {{#if isOverBudget}}
-            <div class="col-sm-4 over-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
+            <div class="col-sm-2 over-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
           {{else}}
-            <div class="col-sm-4 under-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
+            <div class="col-sm-2 under-expense" id="total-expenses"><span>${{totalExpenses}}</span></div>
           {{/if}}
         </div>
       {{else}}
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2 budget {{class}}">${{budgetTotal}}</div>
+          <div class="col-sm-2 budget-total budget {{class}}">${{budgetTotal}}</div>
           {{#if isOverBudget}}
-            <div class="col-sm-2 over-expense expense-total {{class}}">${{expensesTotal}}</div>
+            <div class="col-sm-2 over-expense expense-total expense {{class}}">${{expensesTotal}}</div>
           {{else}}
-            <div class="col-sm-2 under-expense expense-total {{class}}">${{expensesTotal}}</div>
+            <div class="col-sm-2 under-expense expense-total expense {{class}}">${{expensesTotal}}</div>
           {{/if}}
           <div class="col-sm-1 actualPercent"><span>{{budgetPercent}}</span></div>
           <div class="col-sm-2"><span class="suggestion">${{suggestedAmt}}</span></div>
@@ -45,32 +50,6 @@
       {{/if}}
     </h3>
     <div>
-      <div class="row entries">
-        <div class="col-sm-6">
-          <label class="title">Budget:</label>
-          <div class="budgets-container {{class}}">
-            {{#each budgets}}
-              <div data-id={{id}} class="budget-entry entry">
-                <input type="text" class="budget entry-name noboarder" value="{{name}}">: $</input>
-                <input type="text" class="budget entry-amount noboarder" value="{{amount}}"></input>
-                <button class="delete-element">x</button>
-              </div>
-            {{/each}}
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <label class="title">Expenses:</label>
-          <div class="expenses-container {{class}}">
-            {{#each expenses}}
-              <div data-id={{id}} class="expense-entry entry">
-                <input type="text" class="expense entry-name noboarder" value="{{name}}">: $</input>
-                <input type="text" class="expense entry-amount noboarder" value="{{amount}}"></input>
-                <button class="delete-element">x</button>
-              </div>
-            {{/each}}
-          </div>
-        </div>
-      </div>
       <form>
         <label>Add item: </label>
         <input class="entry-title" list={{name}} >
@@ -90,6 +69,35 @@
         {{/unless}}
         <button data-name={{name}} class="save">Save</button>
       </form>
+      <div class="row entries">
+        <div class="col-sm-6">
+          <label class="title">Budget:</label>
+          <div class="budgets-container {{class}}">
+            {{#each budgets}}
+              <div data-id={{id}} class="budget-entry entry">
+                <input type="text" class="budget entry-name noboarder" value="{{name}}">: $</input>
+                <input type="text" class="budget entry-amount noboarder" value="{{amount}}"></input>
+                <button class="delete-element">x</button>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="col-sm-6">
+          {{#unless isIncome}}
+          <label class="title">Expenses:</label>
+          {{/unless}}
+          <div class="expenses-container {{class}}">
+            {{#each expenses}}
+              <div data-id={{id}} class="expense-entry entry">
+                <input type="text" class="expense entry-name noboarder" value="{{name}}">: $</input>
+                <input type="text" class="expense entry-amount noboarder" value="{{amount}}"></input>
+                <button class="delete-element">x</button>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      
 
     </div>
   {{/each}}

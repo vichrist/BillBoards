@@ -24,7 +24,6 @@ function category2Class(category) {
 }
 
 function makeEstimate(userId, cb) {
-  
   // Creating this variable structure
   // estimate[
   //   {
@@ -52,6 +51,11 @@ function makeEstimate(userId, cb) {
       UserId: userId
     }
   }).then(budget => {
+    console.log("estimate budget: ", budget);
+    if (!budget) {
+      cb(null);
+    }
+
     // get Income budget entries for budget
     db.BudgetEntries.findAll({
       where: {
@@ -84,6 +88,7 @@ function makeEstimate(userId, cb) {
         //stuff specifically for income goes here
         if (estimate[i].name === "Income") {
           //add income specific values and over all totals
+          estimate[inc].budgetName = budget.budgetName;
           estimate[inc].isIncome = true;
           estimate[inc].totalIncome = 0.0; // does not include one time income amounts
           estimate[inc].allIncome = 0.0; // does include one time income amounts
@@ -91,7 +96,10 @@ function makeEstimate(userId, cb) {
           estimate[inc].totalExpenses = 0.0; //all expense entries total for all categories
         } else {
           // make suggested dollar amount based percentage
-          estimate[i].suggestedAmt = ((estimate[i].startPercent / 100) * estimate[inc].totalIncome).toFixed(2);
+          estimate[i].suggestedAmt = (
+            (estimate[i].startPercent / 100) *
+            estimate[inc].totalIncome
+          ).toFixed(2);
         }
 
         estimate[i].budgetTotal = 0;
@@ -118,7 +126,7 @@ function makeEstimate(userId, cb) {
               if (estimate[inc].name !== "One Time") {
                 switch (entry.name) {
                   case "Daily":
-                     amt = entry.amount * 30;
+                  amt = entry.amount * 30;
                     break;
                   case "Weekly":
                     amt = entry.amount * 4;
@@ -147,7 +155,7 @@ function makeEstimate(userId, cb) {
 
                 //make a expence item
                 expenseObj.name = entry.name;
-                expenseObj.amount = entry.amount;
+                expenseObj.amount = entry.amount.toFixed(2);
                 expenseObj.id = entry.id;
                 estimate[i].expenses.push(expenseObj);
               } else {
@@ -157,7 +165,7 @@ function makeEstimate(userId, cb) {
 
                 //make budget item
                 budgetObj.name = entry.name;
-                budgetObj.amount = entry.amount;
+                budgetObj.amount = entry.amount.toFixed(2);
                 budgetObj.id = entry.id;
                 estimate[i].budgets.push(budgetObj);
               }
@@ -172,12 +180,12 @@ function makeEstimate(userId, cb) {
             }
           }
         });
-        
+
         // set isOverBudget for total expenses coloring
         // console.log("estimate[i].expensesTotal: ", estimate[i].expensesTotal);
         // console.log("estimate[i].budgetTotal: ", estimate[i].budgetTotal);
       }
-      
+
       if (estimate[inc].totalExpenses > 0) {
         if (estimate[inc].totalBudgets < estimate[inc].totalExpenses) {
           estimate[inc].isOverBudget = true;
@@ -185,18 +193,37 @@ function makeEstimate(userId, cb) {
           estimate[inc].isOverBudget = false;
         }
       }
-      console.log('estimate[inc].totalBudgets: ', estimate[inc].totalBudgets);
-      console.log('estimate[inc].totalExpenses: ', estimate[inc].totalExpenses);
-      console.log('estimate[inc].isOverBudget: ', estimate[inc].isOverBudget);
+      // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
+      // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
+      // console.log("estimate[inc].isOverBudget: ", estimate[inc].isOverBudget);
       // console.log("estimate: ", estimate);
       // console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
       // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
       // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
 
+      // get difference between income and total budget
+      estimate[inc].income2Budget =
+        estimate[inc].totalIncome - estimate[inc].totalBudgets;
+
+      // calc difference between budget and expenses totals
+      estimate[inc].budget2Expense =
+        estimate[inc].totalBudgets - estimate[inc].totalExpenses;
+
       // return estimate
+      estimate.map(fixed);
       cb(estimate);
     });
   });
+}
+
+function fixed(item) {
+  for (const key in item) {
+    if (typeof item[key] === 'number' && !key.match(/percent/i)) {
+      // console.log('key: ', key);
+      item[key] = item[key].toFixed(2);
+      // console.log('item[key]: ', item[key]);
+    }
+  }
 }
 
 module.exports = {

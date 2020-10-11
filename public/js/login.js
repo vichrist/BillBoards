@@ -29,21 +29,24 @@ $(document).ready(() => {
       password: password
     })
       .then(res => {
-        console.log('res: ', res);
+        console.log("res: ", res);
 
-          $.get("/api/budgets/" + res.id).then(budgets => {
-            console.log("budgets: ", budgets);
-            if (budgets !== null) {
-              window.location.replace("/budgets");
-            } else {
-              window.location.replace("/create-budget");
-            }
-          });
-        
+        $.get("/api/budgets/" + res.id).then(budgets => {
+          console.log("budgets: ", budgets);
+          if (budgets === [] || !budgets) {
+            console.log("routing to /create-budget");
+            window.location.replace("/create-budget");
+          } else {
+            console.log("routing to /budgets");
+            window.location.replace("/budgets");
+          }
+        });
+
         // If there's an error, log the error
       })
       .catch(err => {
-        console.log(err);
+        $("#alert .msg").text(`The email or password doesn't match any accounts. If you need to create an account click the link below to go to the sign up page.`);
+        $("#alert").fadeIn(500);
       });
   }
 });
