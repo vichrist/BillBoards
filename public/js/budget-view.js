@@ -75,7 +75,7 @@ $(document).ready(() => {
       const $html = $(`<div data-id=${res.id} class="${type}-entry entry">
         <input type="text" class="${type} entry-name noboarder" value="${budget.name}">: $</input>
         <input type="text" class="${type} entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
-        <button class="delete-element">X</button>
+        <button class="delete-element">x</button>
       </div>`);
 
       $use.prepend($html);
@@ -114,9 +114,9 @@ $(document).ready(() => {
         $(`.budget.${bClass}`).text("$" + e.budgetTotal);
         $(`.expense.${bClass}`).text("$" + e.expensesTotal);
         if (e.isOverBudget) {
-          $(`.expense.${bClass}`).attr(`class`, `${bClass} over-expense`);
+          $(`.expense-total.${bClass}`).attr(`class`, `expense-total ${bClass} over-expense`);
         } else {
-          $(`.expense.${bClass}`).attr("class", `${bClass} under-expense`);
+          $(`.expense-total.${bClass}`).attr("class", `expense-total ${bClass} under-expense`);
         }
 
       });
@@ -125,16 +125,6 @@ $(document).ready(() => {
 
   // listeners for updating an entry amount
   $(document).on("keyup", ".entry", finishEdit); //waits for enter to be pressed
-  // $(document).on("blur", ".entry", cancelEdit); //waits for focus to change then moves
-
-  // // This function handles showing the input box for a user to edit a todo
-  // function editName() {
-  //   var currentTodo = $(this).data("todo");
-  //   $(this).children().hide();
-  //   $(this).children("input.edit").val(currentTodo.text);
-  //   $(this).children("input.edit").show();
-  //   $(this).children("input.edit").focus();
-  // }
 
   //   // This function starts updating a todo in the database if a user hits the "Enter Key"
   // While in edit mode
@@ -161,54 +151,10 @@ $(document).ready(() => {
         method: "PUT",
         url: "/api/entry/update",
         data: entry
+      }).then(()=> {
+        updateTotals();
       });
     }
-  }
+  };
 
-  // This function is called whenever a todo item is in edit mode and loses focus
-  // This cancels any edits being made
-  // function cancelEdit() {
-  //   var currentTodo = $(this).data("todo");
-  //   if (currentTodo) {
-  //     $(this).children().hide();
-  //     $(this).children("input.edit").val(currentTodo.text);
-  //     $(this).children("span").show();
-  //     $(this).children("button").show();
-  //   }
-  // }
-
-  //   // This function updates a todo in our database
-  //   function updateTodo(todo) {
-  //     $.ajax({
-  //       method: "PUT",
-  //       url: "/api/todos",
-  //       data: todo
-  //     }).then(getTodos);
-  //   }
-
-  // function updateList(listElement)
-
-  // });
-
-  // function createNewRow(todo) {
-  //     var $newInputRow = $(
-  //       [
-  //         "<li class='list-group-item todo-item'>",
-  //         "<span>",
-  //         todo.text,
-  //         "</span>",
-  //         "<input type='text' class='edit' style='display: none;'>",
-  //         "<button class='delete btn btn-danger'>x</button>",
-  //         "<button class='complete btn btn-primary'>✓</button>",
-  //         "</li>"
-  //       ].join("")
-  //     );
-
-  //     $newInputRow.find("button.delete").data("id", todo.id);
-  //     $newInputRow.find("input.edit").css("display", "none");
-  //     $newInputRow.data("todo", todo);
-  //     if (todo.complete) {
-  //       $newInputRow.find("span").css("text-decoration", "line-through");
-  //     }
-  //     return $newInputRow;
 });

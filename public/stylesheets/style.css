@@ -44,13 +44,13 @@ body {
   }
 
 .under-expense {
-	color: #2ad021;
+	color: #66de34;
 }
 
 input[type=text].expense,
 .expense,
 .over-expense {
-	color: #ad0000;
+	color: #ff5454;
 }
 	
 span {
@@ -97,12 +97,13 @@ label {
 
 .col-sm-4 {
 	text-align: center;
-	color: black;
+	/* color: black; */
 }
 
 .title {
 	text-align: center;
 	width: 100%;
+	color: black
 }
 
 .panel {

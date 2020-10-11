@@ -161,8 +161,9 @@ function makeEstimate(userId, cb) {
                 budgetObj.id = entry.id;
                 estimate[i].budgets.push(budgetObj);
               }
-
-              // set isOverBudget for expense coloring
+            }
+            // set isOverBudget for expense totals coloring
+            if (estimate[i].expensesTotal > 0) {
               if (estimate[i].budgetTotal < estimate[i].expensesTotal) {
                 estimate[i].isOverBudget = true;
               } else {
@@ -171,11 +172,23 @@ function makeEstimate(userId, cb) {
             }
           }
         });
+        
+        // set isOverBudget for total expenses coloring
         // console.log("estimate[i].expensesTotal: ", estimate[i].expensesTotal);
         // console.log("estimate[i].budgetTotal: ", estimate[i].budgetTotal);
       }
-
-      console.log("estimate: ", estimate);
+      
+      if (estimate[inc].totalExpenses > 0) {
+        if (estimate[inc].totalBudgets < estimate[inc].totalExpenses) {
+          estimate[inc].isOverBudget = true;
+        } else {
+          estimate[inc].isOverBudget = false;
+        }
+      }
+      console.log('estimate[inc].totalBudgets: ', estimate[inc].totalBudgets);
+      console.log('estimate[inc].totalExpenses: ', estimate[inc].totalExpenses);
+      console.log('estimate[inc].isOverBudget: ', estimate[inc].isOverBudget);
+      // console.log("estimate: ", estimate);
       // console.log("estimate[inc].totalIncome: ", estimate[inc].totalIncome);
       // console.log("estimate[inc].totalExpenses: ", estimate[inc].totalExpenses);
       // console.log("estimate[inc].totalBudgets: ", estimate[inc].totalBudgets);
