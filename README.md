@@ -3,7 +3,14 @@
 ![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Description
-A user can log in and create a budget easily. It has many categories and sub categories for you to make the budget making process a breeze.For every category it has at a glance your budget total, expenses total, and suggeted percentages and amounts based on your total income.
+A user can log in and create a budget easily. It has many categories and sub categories for you to make the budget making process a breeze. For every category it has at a glance your budget total, expenses total, and suggeted percentages and amounts based on your total income. 
+- You can easily add budget or expense items to each category and the everything is totaled up live.
+- You can click on and modify your entries and just press enter to lock in your changes.
+- You can enter equations to be evaluated for the amount. (ie. 300/12 would save as $25.00)
+- Daily, weekly, and bi-weekly income are calculated to a monthly amount for the total income
+- upon entering your first income an estimated budget is created for you. Those values will change with your income if you add or subtract from it or add multiple income steams.
+- every category is packed with suggestions of items to include there in a dropdown menu when you click to enter a name. 
+
 
 ## Links
 Deployed link: https://sleepy-eyrie-55325.herokuapp.com/

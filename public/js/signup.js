@@ -41,25 +41,7 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err, email, password) {
-    $.post("/api/login", {
-      email: email,
-      password: password
-    })
-      .then(res => {
-        console.log("res: ", res);
-
-        $.get("/api/budgets/" + res.id).then(budgets => {
-          console.log("budgets: ", budgets);
-          if (budgets !== null) {
-            window.location.replace("/budgets");
-          } else {
-            window.location.replace("/create-budget");
-          }
-        });
-      })
-      .catch(() => {
-        $("#alert .msg").text(err.responseJSON);
-        $("#alert").fadeIn(500);
-      });
+    $("#alert .msg").text(`${email} already exists. If this is you please click the link below to the login page.`);
+    $("#alert").fadeIn(500);
   }
 });

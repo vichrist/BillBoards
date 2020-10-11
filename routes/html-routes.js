@@ -1,10 +1,7 @@
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
 // const {personalCategories} = require("../utils/categories.js");
-const {
-  makeEstimate,
-  getBudgetEntriesCategory
-} = require("../config/utils/estimates.js");
+const { makeEstimate } = require("../config/utils/estimates.js");
 const db = require("../models");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -23,7 +20,17 @@ module.exports = function(app) {
     // If the user already has an account send them to the budget page
     console.log("req.user: ", req.user);
     if (req.user) {
-      res.redirect("/budgets");
+      db.Budgets.findOne({
+        where: {
+          UserId: userId
+        }.then(budget => {
+          if (budget) {
+            res.redirect("/budgets");
+          } else {
+            res.redirect("/create-budget");
+          }
+        })
+      });
     }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
@@ -35,10 +42,16 @@ module.exports = function(app) {
     // console.log('req.user: ', req.user);
     // console.log('categories: ', categories);
     makeEstimate(req.user.id, est => {
-      res.render("index", {
-        category: est,
-        income: est.income
-      });
+      console.log("est: ", est);
+
+      if (!est) {
+        res.sendFile(path.join(__dirname, "../public/create-budget.html"));
+      } else {
+        res.render("index", {
+          category: est,
+          income: est.income
+        });
+      }
     });
   });
   // res.sendFile(path.join(__dirname, "../public/budgets.html"));
