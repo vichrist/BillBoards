@@ -35,11 +35,31 @@ $(document).ready(() => {
         window.location.replace("/create-budget");
       })
       // If there's an error, handle it by throwing up a bootstrap alert
-      .catch(handleLoginErr);
+      .catch(err => {
+        handleLoginErr(err, email, password);
+      });
   }
 
-  function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
+  function handleLoginErr(err, email, password) {
+    $.post("/api/login", {
+      email: email,
+      password: password
+    })
+      .then(res => {
+        console.log("res: ", res);
+
+        $.get("/api/budgets/" + res.id).then(budgets => {
+          console.log("budgets: ", budgets);
+          if (budgets !== null) {
+            window.location.replace("/budgets");
+          } else {
+            window.location.replace("/create-budget");
+          }
+        });
+      })
+      .catch(() => {
+        $("#alert .msg").text(err.responseJSON);
+        $("#alert").fadeIn(500);
+      });
   }
 });

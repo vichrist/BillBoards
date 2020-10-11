@@ -80,7 +80,9 @@ const personalCategories = [
     subCategories: [
       "Credit Card",
       "Car Payment",
-      "Student Loan"
+      "Student Loan",
+      "HELOC Loan",
+      "Personal Loan"
     ]
   },{
     name: "Food",
