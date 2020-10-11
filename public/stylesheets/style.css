@@ -43,8 +43,14 @@ body {
 	color: white;
   }
 
-.expense {
-	color: #ad0000;
+.under-expense {
+	color: #66de34;
+}
+
+input[type=text].expense,
+.expense,
+.over-expense {
+	color: #ff5454;
 }
 	
 span {
@@ -80,19 +86,24 @@ label {
 
 /* budgetView */
 .entry-amount {
-	width: 70px
+	width: 80px
 }
 
 #accordion {
 	width: 70%;
   margin: auto;
   margin-top: 30px;
-  
 }
 
-.col-sm-4, 
-span {
+.col-sm-4 {
 	text-align: center;
+	/* color: black; */
+}
+
+.title {
+	text-align: center;
+	width: 100%;
+	color: black
 }
 
 .panel {
@@ -159,5 +170,5 @@ span {
 
 .entry-name {
 	text-align: right;
-	width: 120px;
+	width: 160px;
 }

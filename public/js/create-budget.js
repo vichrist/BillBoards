@@ -31,7 +31,7 @@ $(document).ready(() => {
           // post initial income to that budget
           $.post("/api/post/budget-entries", {
             business: budgetType,
-            budgetExpense: false,
+            isExpense: false,
             amount: parseFloat(incomeAmt),
             name: incType,
             category: "Income",
@@ -51,5 +51,4 @@ $(document).ready(() => {
     // route to budgets view page
     window.location.replace("/budgets");
   });
-
 });

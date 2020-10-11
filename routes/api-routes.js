@@ -55,7 +55,7 @@ module.exports = function(app) {
 
   // get all budgets for userId
   app.get("/api/budgets/:userId", (req, res) => {
-    console.log(`Getting all budgets for user #${req.params.userId}`)
+    console.log(`Getting all budgets for user #${req.params.userId}`);
     db.Budgets.findAll({
       where: {
         UserId: req.user.id
@@ -81,7 +81,7 @@ module.exports = function(app) {
 
   // post a budget
   app.post("/api/post/budget", (req, res) => {
-    console.log(`Adding new budget for user #${req.body.UserId}`)
+    console.log(`Adding new budget for user #${req.body.UserId}`);
     db.Budgets.create({
       business: req.body.business,
       budgetName: req.body.budgetName,
@@ -98,7 +98,9 @@ module.exports = function(app) {
 
   // post new category
   app.post("/api/post/category", (req, res) => {
-    console.log(`Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`);
+    console.log(
+      `Adding a category of ${req.body.subcategoryName} to ${req.body.categoryName}`
+    );
     db.Categories.create({
       categoryName: req.body.categoryName,
       subcategoryName: req.body.subcategoryName,
@@ -119,14 +121,14 @@ module.exports = function(app) {
     console.log(`Adding a budget entry for ${req.body.name}`);
     db.BudgetEntries.create({
       business: req.body.business,
-      budgetExpense: req.body.budgetExpense,
+      isExpense: req.body.isExpense,
       amount: req.body.amount,
       name: req.body.name,
       category: req.body.category,
       BudgetId: req.body.BudgetId
     })
       .then(postBudgetEntries => {
-        console.log('postBudgetEntries: ', postBudgetEntries);
+        console.log("postBudgetEntries: ", postBudgetEntries);
         postBudgetEntries.userId = req.user.id;
         res.json(postBudgetEntries);
       })
@@ -177,6 +179,28 @@ module.exports = function(app) {
     })
       .then(deleteCategory => {
         res.json(deleteCategory);
+      })
+      .catch(err => {
+        res.json(err);
+        console.log(err);
+      });
+  });
+
+  // update entry
+  app.put("/api/entry/update", (req, res) => {
+    db.BudgetEntries.update(
+      {
+        name: req.body.name,
+        amount: req.body.amount
+      },
+      {
+        where: {
+          id: req.body.id
+        }
+      }
+    )
+      .then(updated => {
+        res.json(updated);
       })
       .catch(err => {
         res.json(err);

@@ -7,9 +7,9 @@ $(document).ready(() => {
     e.preventDefault();
     console.log("deleting was clicked");
     const $parent = $(this).parent();
-    console.log('$parent: ', $parent);
+    console.log("$parent: ", $parent);
     const id = $parent.data("id");
-    console.log('id: ', id);
+    console.log("id: ", id);
 
     $.ajax({
       method: "DELETE",
@@ -24,36 +24,27 @@ $(document).ready(() => {
   //add a budget or expense item
   $(".save").on("click", function(e) {
     e.preventDefault();
-    const elType = $(this).prev();
-    // console.log('elType: ', elType);
-    const amt = $(elType).prev().prev();
-    // console.log('amt: ', amt);
-    const name = $(amt).prev().prev().prev()
-    let catgry = $(name).parent().parent().prev().text();
-    // console.log('catgry: ', catgry);
-
-    catgry = catgry.match(/[\S]+/)[0];
-    console.log("elType: ", elType.val());
-    console.log("name: ", name.val());
-    console.log("amt: ", amt.val());
-    console.log("catgry: ", catgry);
-
     console.log("running save");
+
+    const $parent = $(this).parent();
+    const $name = $parent.find(".entry-title");
+    const name = $name.val().trim();
+    const $amt = $parent.find(".entry-amount");
+    const amt = $amt.val().trim();
+    const elType = $parent.find(".entry-type").val().trim();
+    const catgry = $parent.find("datalist").attr("id");
+    
     // Wont submit the budget if we are missing an entry field
-    if (!name.val().trim() || !amt.val().trim() || !elType.val().trim()) {
+    if (!name || !amt || !elType) {
       return;
     }
-
-    const bType = elType.val().trim() === "Expense";
-
-    console.log("bType: ", bType);
 
     // Constructing a budget object to hand to the database
     const budget = {
       business: false,
-      budgetExpense: bType,
-      name: name.val().trim(),
-      amount: parseFloat(amt.val().trim()),
+      isExpense: elType === "Expense",
+      name: name,
+      amount: parseFloat(amt),
       category: catgry,
       BudgetId: 1
     };
@@ -61,8 +52,8 @@ $(document).ready(() => {
     console.log(budget);
 
     //clear out the values for the next input
-    amt.val("");
-    name.val("");
+    $amt.val("");
+    $name.val("");
 
     // If we're updating a budget run updateBudget to update a budget
     // Otherwise run submitBudget to create a whole new budget
@@ -70,8 +61,8 @@ $(document).ready(() => {
   });
 
   function addEntry2HTML(budget) {
-    const bClass = budget.category.match(/\w+/)[0];
-    if (budget.budgetExpense) {
+    const bClass = budget.category.match(/\w+/)[0]; //just use first word for a class name
+    if (budget.isExpense) {
       type = "expense";
       $use = $(`.expenses-container.${bClass}`);
     } else {
@@ -79,12 +70,12 @@ $(document).ready(() => {
       $use = $(`.budgets-container.${bClass}`);
     }
     $.post("/api/post/budget-entries", budget, res => {
-      console.log('res: ', res);
+      console.log("res: ", res);
 
-      const $html = $(`<div id=${res.id} class="${type}-entry entry">
-        <label class="${type}-entry">${budget.name}:  $</label>
-        <input type="text" class="entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
-        <button class="delete-element">X</button>
+      const $html = $(`<div data-id=${res.id} class="${type}-entry entry">
+        <input type="text" class="${type} entry-name noboarder" value="${budget.name}">: $</input>
+        <input type="text" class="${type} entry-amount ${type}-entry noboarder" value="${budget.amount}"></input>
+        <button class="delete-element">x</button>
       </div>`);
 
       $use.prepend($html);
@@ -95,103 +86,75 @@ $(document).ready(() => {
   function updateTotals() {
     $.get("/api/budget/estimate", est => {
       console.log("the est: ", est);
-  
+      
+      console.log("est[0].totalIncome: ", est[0].totalIncome);
+      console.log("est[0].totalBudgets: ", est[0].totalBudgets);
+      console.log("est[0].totalExpenses: ", est[0].totalExpenses);
+
       // update the grand totals on the income
       $("#total-income").text("$" + est[0].totalIncome);
       $("#total-expenses").text("$" + est[0].totalExpenses);
       $("#total-budget").text("$" + est[0].totalBudgets);
+      if (est[0].totalExpenses > est[0].totalBudgets) {
+        $("#total-expenses").attr("class", "col-sm-4 over-expense");
+      } else {
+        $("#total-expenses").attr("class", "col-sm-4 under-expense");
+      }
   
       // loop through each category in estimate and update the elements on the HTML
       est.forEach(e => {
-        console.log("e.name: ", e.name);
+        // console.log("e.name: ", e.name);
   
         //get the class name for finding the budget list and expense list
         const bClass = e.class;
   
         // update the budget and expense totals for the category
-        console.log("e.budgetTotal: ", e.budgetTotal);
-        console.log("e.expensesTotal: ", e.expensesTotal);
+        // console.log("e.budgetTotal: ", e.budgetTotal);
+        // console.log("e.expensesTotal: ", e.expensesTotal);
         $(`.budget.${bClass}`).text("$" + e.budgetTotal);
         $(`.expense.${bClass}`).text("$" + e.expensesTotal);
+        if (e.isOverBudget) {
+          $(`.expense-total.${bClass}`).attr(`class`, `expense-total ${bClass} over-expense`);
+        } else {
+          $(`.expense-total.${bClass}`).attr("class", `expense-total ${bClass} under-expense`);
+        }
+
       });
     });
   }
 
-  //     $(document).on("click", ".amount", editTodo); //waits for click on item
-  //     $(document).on("keyup", ".amount", finishEdit); //waits for enter to be pressed
-  //     $(document).on("blur", ".amount", cancelEdit); //waits for focus to change then moves
-
-  //   // This function grabs todos from the database and updates the view
-  //   function getTodos() {
-  //     $.get("/api/todos", function(data) {
-  //       todos = data;
-  //       initializeRows();
-  //     });
-  //   }
-  //   // This function handles showing the input box for a user to edit a todo
-  //   function editTodo() {
-  //     var currentTodo = $(this).data("todo");
-  //     $(this).children().hide();
-  //     $(this).children("input.edit").val(currentTodo.text);
-  //     $(this).children("input.edit").show();
-  //     $(this).children("input.edit").focus();
-  //   }
+  // listeners for updating an entry amount
+  $(document).on("keyup", ".entry", finishEdit); //waits for enter to be pressed
 
   //   // This function starts updating a todo in the database if a user hits the "Enter Key"
-  //   // While in edit mode
-  //   function finishEdit(event) {
-  //     var updatedTodo = $(this).data("todo");
-  //     if (event.which === 13) {
-  //       updatedTodo.text = $(this).children("input").val().trim();
-  //       $(this).blur();
-  //       updateTodo(updatedTodo);
-  //     }
-  //   }
+  // While in edit mode
+  function finishEdit(event) {
+    const name = $(this).find(".entry-name").val().trim();
+    const amt = $(this).find(".entry-amount").val().trim();
+    const id = $(this).data("id")
 
-  //   // This function is called whenever a todo item is in edit mode and loses focus
-  //   // This cancels any edits being made
-  //   function cancelEdit() {
-  //     var currentTodo = $(this).data("todo");
-  //     if (currentTodo) {
-  //       $(this).children().hide();
-  //       $(this).children("input.edit").val(currentTodo.text);
-  //       $(this).children("span").show();
-  //       $(this).children("button").show();
-  //     }
-  //   }
+    const entry = {
+      name: name,
+      amount: amt,
+      id: id
+    }
+    
+    if (event.which === 13) {
+      // console.log('id: ', id);
+      // console.log('name: ', name);
+      // console.log('amt: ', amt);
+      $(this).find(".entry-name").blur();
+      $(this).find(".entry-amount").blur();
+      
 
-  //   // This function updates a todo in our database
-  //   function updateTodo(todo) {
-  //     $.ajax({
-  //       method: "PUT",
-  //       url: "/api/todos",
-  //       data: todo
-  //     }).then(getTodos);
-  //   }
+      $.ajax({
+        method: "PUT",
+        url: "/api/entry/update",
+        data: entry
+      }).then(()=> {
+        updateTotals();
+      });
+    }
+  };
 
-  // function updateList(listElement)
-
-  // });
-
-  // function createNewRow(todo) {
-  //     var $newInputRow = $(
-  //       [
-  //         "<li class='list-group-item todo-item'>",
-  //         "<span>",
-  //         todo.text,
-  //         "</span>",
-  //         "<input type='text' class='edit' style='display: none;'>",
-  //         "<button class='delete btn btn-danger'>x</button>",
-  //         "<button class='complete btn btn-primary'>✓</button>",
-  //         "</li>"
-  //       ].join("")
-  //     );
-
-  //     $newInputRow.find("button.delete").data("id", todo.id);
-  //     $newInputRow.find("input.edit").css("display", "none");
-  //     $newInputRow.data("todo", todo);
-  //     if (todo.complete) {
-  //       $newInputRow.find("span").css("text-decoration", "line-through");
-  //     }
-  //     return $newInputRow;
 });
