@@ -41,7 +41,7 @@ HTTP, CSS, JavaScript, Bootstrap, jQuery, ES6, RegEx, Node.js, express, express-
     
 
 ## Example
-![example](./public/images/image.png)
+![example](./public/assets/image.png)
 
 ## Installation
 To install the necessary denpendencies, run the following command:
