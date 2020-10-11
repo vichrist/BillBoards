@@ -49,14 +49,13 @@ body {
 }
 
 input[type=text].expense,
-.expense,
 .over-expense {
 	color: #ff5454;
 }
 	
 #budget-expenses,
 #income-budget {
-	color: #a59b26;
+	color: black;
 }
 
 .budget-total {
@@ -78,8 +77,8 @@ span {
 	padding-top: 10px;
 }
 
-ui-accordian-content {
-	height: 400px
+.ui-accordian-content {
+	height: 100px
 }
 
 label {
@@ -111,9 +110,15 @@ label {
 }
 
 .title {
-	text-align: justify;
+	text-align: center;
 	width: 100%;
 	color: black
+}
+
+#budget-name {
+	text-align: center;  
+	width: 100%; 
+	font-size: x-large;
 }
 
 .panel {

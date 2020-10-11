@@ -101,18 +101,18 @@ $(document).ready(() => {
     $.get("/api/budget/estimate", est => {
       console.log("the est: ", est);
       
-      console.log("est[0].totalIncome: ", parseFloat(est[0].totalIncome).toFixed(2));
-      console.log("est[0].totalBudgets: ", parseFloat(est[0].totalBudgets).toFixed(2));
+      console.log("est[0].totalIncome: ", est[0].totalIncome);
+      console.log("est[0].totalBudgets: ", est[0].totalBudgets);
       console.log("est[0].totalExpenses: ", parseFloat(est[0].totalExpenses).toFixed(2));
 
       // update the grand totals on the income
-      $("#total-income").text("$" + parseFloat(est[0].totalIncome).toFixed(2));
-      $("#total-expenses").text("$" + parseFloat(est[0].totalExpenses).toFixed(2));
-      $("#total-budget").text("$" + parseFloat(est[0].totalBudgets).toFixed(2));
+      $("#total-income").text("$" + est[0].totalIncome);
+      $("#total-expenses").text("$" + est[0].totalExpenses);
+      $("#total-budget").text("$" + est[0].totalBudgets);
       if (est[0].totalExpenses > est[0].totalBudgets) {
-        $("#total-expenses").attr("class", "col-sm-4 over-expense");
+        $("#total-expenses").attr("class", "col-sm-2 over-expense");
       } else {
-        $("#total-expenses").attr("class", "col-sm-4 under-expense");
+        $("#total-expenses").attr("class", "col-sm-2 under-expense");
       }
   
       // loop through each category in estimate and update the elements on the HTML
@@ -123,14 +123,14 @@ $(document).ready(() => {
         const bClass = e.class;
   
         // update the budget and expense totals for the category
-        // console.log("e.budgetTotal: ", e.budgetTotal);
-        // console.log("e.expensesTotal: ", e.expensesTotal);
-        $(`.budget.${bClass}`).text("$" + e.budgetTotal.toFixed(2));
-        $(`.expense.${bClass}`).text("$" + e.expensesTotal.toFixed(2));
+        console.log("e.budgetTotal: ", e.budgetTotal);
+        console.log("e.expensesTotal: ", e.expensesTotal);
+        $(`.budget.${bClass}`).text("$" + e.budgetTotal);
+        $(`.expense.${bClass}`).text("$" + e.expensesTotal);
         if (e.isOverBudget) {
-          $(`.expense-total.${bClass}`).attr(`class`, `expense-total ${bClass} over-expense`);
+          $(`.expense-total.${bClass}`).attr(`class`, `expense-total expense ${bClass} over-expense`);
         } else {
-          $(`.expense-total.${bClass}`).attr("class", `expense-total ${bClass} under-expense`);
+          $(`.expense-total.${bClass}`).attr("class", `expense-total expense ${bClass} under-expense`);
         }
 
       });

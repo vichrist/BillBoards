@@ -13,7 +13,7 @@
   {{#each category}}
     <h3 class="category">
       {{#if isIncome}}  
-        <div style="text-align: center;  width: 100%; font-size: x-large;">{{budgetName}}</div>
+        <div class="title" id="budget-name" style="text-align: center;  width: 100%; font-size: x-large;">{{budgetName}}</div>
         <span class="catTitle">{{name}}</span>
         <div class="row">
           <div class="col-sm-2 title"><span >Total Income</span></div>
@@ -36,11 +36,11 @@
       {{else}}
         <span class="catTitle">{{name}}</span>
         <div class="row">
-          <div class="col-sm-2 budget-total {{class}}">${{budgetTotal}}</div>
+          <div class="col-sm-2 budget-total budget {{class}}">${{budgetTotal}}</div>
           {{#if isOverBudget}}
-            <div class="col-sm-2 over-expense expense-total {{class}}">${{expensesTotal}}</div>
+            <div class="col-sm-2 over-expense expense-total expense {{class}}">${{expensesTotal}}</div>
           {{else}}
-            <div class="col-sm-2 under-expense expense-total {{class}}">${{expensesTotal}}</div>
+            <div class="col-sm-2 under-expense expense-total expense {{class}}">${{expensesTotal}}</div>
           {{/if}}
           <div class="col-sm-1 actualPercent"><span>{{budgetPercent}}</span></div>
           <div class="col-sm-2"><span class="suggestion">${{suggestedAmt}}</span></div>
@@ -83,7 +83,9 @@
           </div>
         </div>
         <div class="col-sm-6">
+          {{#unless isIncome}}
           <label class="title">Expenses:</label>
+          {{/unless}}
           <div class="expenses-container {{class}}">
             {{#each expenses}}
               <div data-id={{id}} class="expense-entry entry">
