@@ -153,6 +153,8 @@ $(document).ready(() => {
       amt = eval(amt).toFixed(2);
       $(this).find(".entry-amount").val(amt); // store evaluated code
       $(this).find(".entry-name").val(name);
+      oldName = "";
+      oldAmount = "";
 
       const entry = {
         name: name,
@@ -165,7 +167,7 @@ $(document).ready(() => {
       // console.log('amt: ', amt);
       $(this).find(".entry-name").blur();
       $(this).find(".entry-amount").blur();
-      
+
 
       $.ajax({
         method: "PUT",
@@ -187,10 +189,12 @@ $(document).ready(() => {
 
   function cancelEdit(event) {
     //restore original values
-    $(this).find(".entry-amount").val(oldAmount);
-    $(this).find(".entry-name").val(oldName);
-    oldName = "";
-    oldAmount = "";
+    if (oldAmount !== "" && oldName !== "") {
+      $(this).find(".entry-amount").val(oldAmount);
+      $(this).find(".entry-name").val(oldName);
+      oldName = "";
+      oldAmount = "";
+    }
   }
 
 });
