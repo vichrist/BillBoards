@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     }
     // dueDate: {
-    //   type: DataTypes.DATETIME
+    //   type: DataTypes.DATE
     // }
   });
 

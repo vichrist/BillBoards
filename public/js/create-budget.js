@@ -19,14 +19,14 @@ $(document).ready(() => {
     $.get("/api/user_data").then(data => {
       // post a budget (personal or business as selected)
       $.get("/api/budgets/" + data.id).then(allRes => {
-        console.log('allRes: ', allRes);
+        // console.log('allRes: ', allRes);
 
         $.post("/api/post/budget", {
           business: budgetType,
           budgetName: name,
           UserId: data.id
         }).then(ans => {
-          console.log('ans: ', ans);
+          // console.log('ans: ', ans);
 
           // post initial income to that budget
           $.post("/api/post/budget-entries", {
