@@ -103,7 +103,9 @@ label {
   margin: auto;
   margin-top: 30px;
 }
-
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
 .col-sm-4 {
 	text-align: center;
 	/* color: black; */

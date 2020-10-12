@@ -51,7 +51,7 @@ function makeEstimate(userId, cb) {
       UserId: userId
     }
   }).then(budget => {
-    console.log("estimate budget: ", budget);
+    // console.log("estimate budget: ", budget);
     if (!budget) {
       cb(null);
     }
@@ -115,8 +115,8 @@ function makeEstimate(userId, cb) {
 
           if (entry.category === estimate[i].name) {
             estimate[i].isIncome = false;
-            console.log("entry.name: ", entry.name);
-            console.log("entry.id: ", entry.id);
+            // console.log("entry.name: ", entry.name);
+            // console.log("entry.id: ", entry.id);
 
             // update totals for Income
             if (estimate[i].name === "Income") {

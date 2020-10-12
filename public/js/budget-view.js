@@ -99,11 +99,11 @@ $(document).ready(() => {
 
   function updateTotals() {
     $.get("/api/budget/estimate", est => {
-      console.log("the est: ", est);
+      // console.log("the est: ", est);
       
-      console.log("est[0].totalIncome: ", est[0].totalIncome);
-      console.log("est[0].totalBudgets: ", est[0].totalBudgets);
-      console.log("est[0].totalExpenses: ", parseFloat(est[0].totalExpenses).toFixed(2));
+      // console.log("est[0].totalIncome: ", est[0].totalIncome);
+      // console.log("est[0].totalBudgets: ", est[0].totalBudgets);
+      // console.log("est[0].totalExpenses: ", parseFloat(est[0].totalExpenses).toFixed(2));
 
       // update the grand totals on the income
       $("#total-income").text("$" + est[0].totalIncome);
@@ -123,8 +123,8 @@ $(document).ready(() => {
         const bClass = e.class;
   
         // update the budget and expense totals for the category
-        console.log("e.budgetTotal: ", e.budgetTotal);
-        console.log("e.expensesTotal: ", e.expensesTotal);
+        // console.log("e.budgetTotal: ", e.budgetTotal);
+        // console.log("e.expensesTotal: ", e.expensesTotal);
         $(`.budget.${bClass}`).text("$" + e.budgetTotal);
         $(`.expense.${bClass}`).text("$" + e.expensesTotal);
         if (e.isOverBudget) {
@@ -146,6 +146,9 @@ $(document).ready(() => {
   // While in edit mode
   function finishEdit(event) {
     if (event.which === 13) {
+      oldName = "";
+      oldAmount = "";
+
       const name = $(this).find(".entry-name").val().trim();
       let amt = $(this).find(".entry-amount").val().trim();
       const id = $(this).data("id")
@@ -153,15 +156,13 @@ $(document).ready(() => {
       amt = eval(amt).toFixed(2);
       $(this).find(".entry-amount").val(amt); // store evaluated code
       $(this).find(".entry-name").val(name);
-      oldName = "";
-      oldAmount = "";
 
       const entry = {
         name: name,
         amount: amt,
         id: id
       }
-    
+
       // console.log('id: ', id);
       // console.log('name: ', name);
       // console.log('amt: ', amt);
