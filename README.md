@@ -59,6 +59,11 @@ The license for this project is: *MIT* ©  2020 Jason Tilley, Christal Vigil, Ma
 Hop on the live link, sign up, create a budget by filling in the requested info, and then start adding budget items to any of the categories.
 
 ## Questions
-Feel free to check out our GitHub page here: https://github.com/vichrist/BillBoards
+If you have any questions you can email us or checkout our GitHub pages: 
+- Jason Tilley - jttilley007@gmail.com -- https://github.com/jttilley
+- Mason McGinley - masonmcginley32@gmail.com -- https://github.com/mmcginley32
+- Christal Vigil - c.vigil27@gmail.com -- https://github.com/vichrist
+- Haley Lewis - haaley.lew@gmail.com -- https://github.com/haaleylew
+- Raufun Patoary - raufun117@gmail.com -- https://github.com/raufun05
   
 
