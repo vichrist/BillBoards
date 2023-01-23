@@ -15,9 +15,9 @@ A user can log in and create a budget easily. It has many categories and sub cat
 
 
 ## Links
-Deployed link: https://sleepy-eyrie-55325.herokuapp.com/
+Deployed link: https://billboards.herokuapp.com/
 
-Repo link: https://github.com/vichrist/BillBoards
+Repo link: https://github.com/jttilley/BillBoards
 
 ## Authors
 Jason Tilley, Christal Vigil, Mason McGinley, Haley Lewis, and Raufun Patoary
